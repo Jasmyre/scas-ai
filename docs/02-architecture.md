@@ -80,14 +80,17 @@ School (tenant)
 The adapter is the *only* way the assistant reaches portal data. Keeping it an interface — not a direct Edusuite call — is what lets the concept be honest and demoable before Edusuite access exists.
 
 ```
-getGrades(student)        -> [{ subject, term, grade, status }]
+getGrades(student)        -> { gwa, scale, subjects: [{ subject, units, term, finalGrade, status }] }
 getBalance(student)       -> { amount, currency, dueDates[] }
 getEnrollment(student)    -> { term, status, subjects[] }
 getClearance(student)     -> [{ item, status, dueDate }]
-getSchedule(student)      -> [{ subject, day, time, room }]
+getSchedule(student)      -> [{ subject, section, professor, room, day, date, startTime, endTime, term }]
 getAnnouncements(student) -> [{ id, title, body, publishedAt, relevantToStudent }]
 ```
 
+- `gwa` is computed by the adapter from final grades and credit units, and returned with the inputs that produced it. The model never computes it.
+- A schedule entry is one class meeting: a subject that meets twice a week, or has a separate lab, yields multiple entries.
+- A schedule `date` is the calendar date of a one-off session, or the term date range for a recurring class.
 - **Mock implementation (now):** seeded with synthetic SCAS-shaped data so the whole pipeline runs end to end.
 - **Edusuite implementation (later):** documented against Edusuite's modules but not wired. See `04-integration.md`.
 

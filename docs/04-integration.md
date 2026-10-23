@@ -73,6 +73,11 @@ A mapping from each adapter method to the corresponding Edusuite source. Indicat
 | `getSchedule` | Schedule / Ongoing Classes |
 | `getAnnouncements` | Announcements module |
 
+**Grade and schedule field notes:**
+
+- **GWA.** Grades Viewing is the source for per-subject final grades and credit units. If Edusuite exposes a GWA field, the adapter passes it through. If it does not, the adapter computes `Σ(finalGrade × units) / Σ(units)` from the term's grades and returns those inputs alongside. The model only phrases the result.
+- **Schedule.** Schedule / Ongoing Classes is the source for subject, section, instructor, room, day, and time. Recurring classes carry the term date range; one-off sessions carry a calendar date. Fields Edusuite leaves blank (usually room or instructor before a term starts) are surfaced as TBA, never inferred.
+
 This implementation is **written as a stub** — real method signatures, real mapping notes, no working credentials — so the concept is honest without pretending access exists.
 
 ---
@@ -99,6 +104,8 @@ These are known, in-scope, and not yet answerable — they depend on facts we do
 - Does `scas.edu.ph` exist as a page SCAS controls, and can it host a script?
 - Can Edusuite create **per-student** links, or only static ones? (Decides whether Path B can ever be authenticated.)
 - Will Edusuite grant a third-party assistant API access at all?
+- Does Edusuite expose credit units and a GWA field, or only per-subject grades? (Decides whether the adapter computes the GWA.)
+- Are the schedule's room and professor fields populated before the term starts, or do they appear late as TBA?
 - What is SCAS's appetite for a formal data-sharing agreement?
 - Who at SCAS owns the "page the widget lives on"?
 

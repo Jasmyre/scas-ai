@@ -36,19 +36,84 @@ Answers about **this student's own** records. Requires a verified identity (see 
 
 | Feature | Student asks | Assistant answers from |
 | --- | --- | --- |
-| My grades | "What's my grade in [subject]?" | Adapter |
+| My grades & GWA | "What's my GWA this term?" / "What's my grade in [subject]?" | Adapter |
 | My balance & dues | "How much do I still owe?" | Adapter |
 | Due dates | "When is my payment due?" | Adapter |
 | My enrollment status | "Am I enrolled for next term?" | Adapter |
 | My clearance tasks | "What's holding my clearance?" | Adapter |
-| My schedule | "What time is my [subject] class?" | Adapter |
+| My schedule | "Which room is my [subject] class in?" / "Who teaches it?" | Adapter |
 | Announcements for me | "Anything I need to act on?" | Adapter + Live |
 
 **Rules:**
-- **Computed, not generated.** The adapter returns the fact; the model only phrases it. The model never calculates a balance or infers a grade.
+- **Computed, not generated.** The adapter returns the fact; the model only phrases it. The model never calculates a balance or a GWA, and never infers a grade.
 - **Scoped, always.** A tool call can only read the token's student. There is no "look up another student" path.
 - **Read-only.** No tool writes, submits, enrolls, or pays.
 - **Silent if unverified.** No valid token means no personal answers — the assistant offers the public alternative and the login link.
+
+### Grades & GWA
+
+The student's own final grades, and the general weighted average (GWA) computed from them.
+
+| Student asks | Answer shape |
+| --- | --- |
+| "What's my grade in [subject]?" | The final grade, units, term, and status for that subject |
+| "What's my GWA this term?" | The unit-weighted average for the term, with the subjects it covers |
+| "What's my GWA overall?" | The unit-weighted average across the terms the portal has on record |
+| "Did I pass [subject]?" | That subject's status, as the portal records it |
+| "Which subjects are included in my GWA?" | The per-subject grades and units behind the average |
+
+**What the adapter returns**
+
+| Field | Meaning |
+| --- | --- |
+| `subject` | Subject code and title |
+| `units` | Credit units the subject carries |
+| `term` | Term the grade belongs to |
+| `finalGrade` | Final grade on the school's scale |
+| `status` | Passed, failed, incomplete, or dropped — as the portal records it |
+| `gwa` | General weighted average, weighted by units: term-scoped, or overall when asked |
+
+**Rules**
+
+- **The adapter computes the GWA, not the model.** The average is `Σ(finalGrade × units) / Σ(units)` over the grade in scope. The model receives the result and its inputs; it never averages, rounds, or extrapolates.
+- **Show the inputs.** A GWA answer names the term and the subjects and units behind it, so the student can check it against the portal.
+- **Missing data is stated, not estimated.** If a grade, a unit count, or the GWA is unavailable, the assistant says which piece is missing and routes to the registrar. It does not offer a "best guess" average.
+- **Incomplete and dropped subjects follow the portal's rule.** When excluding them changes the GWA, the assistant says so in one line instead of silently dropping them.
+- **No comparison, no ranking.** The assistant does not compare the student to classmates, rank them, or estimate a class average. That data is not in scope.
+- **Policy is Layer 1, the record is Layer 2.** "How is the GWA computed?" is answered from the KB. "What is my GWA?" is answered from the adapter.
+
+### Schedule
+
+The student's own class meetings for the term — the subjects they are enrolled in, with the room, professor, date, and time assigned to their section.
+
+| Student asks | Answer shape |
+| --- | --- |
+| "What's my schedule on [day]?" | That day's class meetings, in time order |
+| "What time is my [subject] class?" | The meeting day(s) and start–end time for that subject |
+| "Which room is [subject] in?" | The room assigned to the student's section |
+| "Who is my professor in [subject]?" | The professor assigned to the student's section |
+| "What are my subjects this term?" | The subject list from the schedule, with section and units where available |
+
+**What the adapter returns**
+
+| Field | Meaning |
+| --- | --- |
+| `subject` | Subject code and title |
+| `section` | The student's section or block for that subject |
+| `professor` | The instructor assigned to that section |
+| `room` | The assigned room, or "TBA" / online when the portal says so |
+| `day` | Day(s) of the week the class meets |
+| `date` | Calendar date for a one-off session; term date range for a recurring class |
+| `time` | Start and end time, in the school's local timezone |
+| `term` | Term the schedule belongs to |
+
+**Rules**
+
+- **Own schedule only.** Professor and room are the ones assigned to the student's section, not the full catalog of offerings. There is no "show me another section" path.
+- **One entry per meeting.** A subject that meets twice a week, or splits into lecture and lab, comes back as separate entries; the answer groups them by subject so the student sees one class, not duplicate noise.
+- **Changes are read at answer time.** Room and professor moves come from the portal live, not from a cached copy. If the portal still says "TBA," the assistant says TBA and does not guess.
+- **No rescheduling.** The assistant reports a conflict or a missing assignment; it does not move a class or promise a room. Conflicts route to the registrar.
+- **"Not posted yet" is a valid answer.** Before enlistment, the assistant says the schedule is not available yet and points to the registrar or the enrollment page.
 
 ---
 
@@ -104,7 +169,9 @@ These are not "not yet specified" — they are consciously beyond the destinatio
 The feature set is working when, from the student's side:
 
 - A student can get a correct, sourced answer to a public question without leaving the page.
-- A verified student can get their own balance, next due date, grade, and clearance status — and never another student's.
+- A verified student can get their own balance, next due date, grade/GWA, schedule, and clearance status — and never another student's.
+- A GWA answer comes with the term, subjects, and units behind it, so the student can verify the average against the portal.
+- A schedule answer names the subject, assigned room and professor, and the day, date, and time — or says plainly that a field is TBA.
 - A student who would have missed a due date or a released grade learns about it the next time they open the chat.
 - The assistant never invents a procedure, a date, or an amount.
 - When it can't help, the student leaves with the right office to contact, not a dead end.

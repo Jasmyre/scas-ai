@@ -125,8 +125,16 @@ _Avoid_: Access control, permissions (too broad)
 ### Data
 
 **Adapter**:
-The single interface through which the assistant reads portal data (`getGrades`, `getBalance`, `getEnrollments`, `getClearance`, `getAnnouncements`). Has a mock implementation and a documented Edusuite implementation.
+The single interface through which the assistant reads portal data (`getGrades`, `getBalance`, `getEnrollment`, `getClearance`, `getSchedule`, `getAnnouncements`). Has a mock implementation and a documented Edusuite implementation.
 _Avoid_: Connector, integration layer, service
+
+**GWA (general weighted average)**:
+The unit-weighted average of a student's final grades for a term, or across terms. Computed by the adapter and returned with its inputs; never calculated by the model.
+_Avoid_: Average grade, GPA
+
+**Schedule**:
+A student's own class meetings for a term, each carrying subject, section, professor, room, day, date, and start–end time.
+_Avoid_: Timetable, calendar
 
 **Escalation**:
 Routing a student to the correct human office and contact details when the assistant cannot or should not answer.
