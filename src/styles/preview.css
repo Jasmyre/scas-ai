@@ -1,0 +1,62 @@
+.preview-ui {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: min(1100px, calc(100vw - 48px));
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(16, 18, 24, 0.82);
+  color: #f3f5f8;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+  font-size: 12px;
+}
+
+.preview-btn {
+  appearance: none;
+  border: 0;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-radius: 8px;
+  padding: 7px 12px;
+  cursor: pointer;
+  min-width: 62px;
+}
+
+.preview-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.preview-scrub-wrap {
+  flex: 1;
+}
+
+.preview-scrub {
+  width: 100%;
+  accent-color: #5b8cff;
+  cursor: pointer;
+}
+
+.preview-readout {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #c7ccd6;
+  min-width: 132px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.preview-scene {
+  min-width: 170px;
+  text-align: right;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

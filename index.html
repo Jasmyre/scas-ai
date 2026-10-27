@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SCAS AI — Launch Film</title>
+</head>
+<body>
+  <main id="stage" class="stage" aria-label="SCAS AI launch film">
+    <canvas id="webgl" class="stage-webgl" width="1920" height="1080"></canvas>
+    <div id="rig" class="stage-rig">
+      <div id="scene-mount" class="scene-mount"></div>
+    </div>
+    <div id="flash" class="stage-flash" aria-hidden="true"></div>
+    <div class="stage-grain" aria-hidden="true"></div>
+    <div class="stage-vignette" aria-hidden="true"></div>
+
+    <div id="preview-ui" class="preview-ui" aria-label="Preview controls">
+      <button id="pp" class="preview-btn" type="button">Pause</button>
+      <div class="preview-scrub-wrap">
+        <input id="scrub" class="preview-scrub" type="range" min="0" max="2112" step="1" value="0" />
+      </div>
+      <div class="preview-readout"><span id="frame-readout">0000</span> / 2112 · <span id="time-readout">0.00s</span></div>
+      <div id="scene-readout" class="preview-scene">S01 · Cold Open</div>
+    </div>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

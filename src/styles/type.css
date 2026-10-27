@@ -1,0 +1,80 @@
+.display {
+  font-family: var(--font-display);
+  font-weight: 850;
+  font-variation-settings: 'wght' 850;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+  color: var(--ink);
+  margin: 0;
+}
+
+.display-xl {
+  font-size: 184px;
+}
+
+.display-lg {
+  font-size: 156px;
+}
+
+.display-md {
+  font-size: 128px;
+}
+
+.display-sm {
+  font-size: 104px;
+}
+
+.display .accent {
+  color: var(--brand);
+}
+
+.display .accent-gradient {
+  background: linear-gradient(100deg, var(--brand) 0%, var(--violet) 58%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.display .thin {
+  font-weight: 300;
+  font-variation-settings: 'wght' 300;
+  letter-spacing: -0.03em;
+}
+
+.headline {
+  position: absolute;
+  z-index: 20;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.headline__line {
+  display: block;
+  overflow: hidden;
+}
+
+.headline__inner {
+  display: block;
+}
+
+.kicker {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ui-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}

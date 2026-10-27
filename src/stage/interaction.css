@@ -1,0 +1,77 @@
+.ia-cursor-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ia-cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 26px;
+  height: 26px;
+  margin-left: -3px;
+  margin-top: -2px;
+  filter: drop-shadow(0 3px 6px rgba(10, 12, 18, 0.18));
+  will-change: transform, opacity;
+}
+
+.ia-ring {
+  position: absolute;
+  border-radius: 999px;
+  border: 1.5px solid rgba(47, 107, 255, 0.55);
+  background: rgba(47, 107, 255, 0.08);
+  pointer-events: none;
+}
+
+.ia-key {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(47, 107, 255, 0.65);
+  pointer-events: none;
+}
+
+.ia-dof {
+  position: absolute;
+  inset: 0;
+  z-index: 48;
+  pointer-events: none;
+  opacity: 0;
+  backdrop-filter: blur(var(--dof-blur, 9px)) saturate(0.92);
+  -webkit-mask-image: radial-gradient(
+    ellipse var(--dof-w, 800px) var(--dof-h, 500px) at var(--dof-x, 960px) var(--dof-y, 540px),
+    transparent 0%,
+    transparent 58%,
+    #000 82%
+  );
+  mask-image: radial-gradient(
+    ellipse var(--dof-w, 800px) var(--dof-h, 500px) at var(--dof-x, 960px) var(--dof-y, 540px),
+    transparent 0%,
+    transparent 58%,
+    #000 82%
+  );
+}
+
+.ia-highlight {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.is-pressed {
+  filter: brightness(0.95) saturate(1.05);
+}
+
+.is-highlighted {
+  background: var(--hl, rgba(47, 107, 255, 0.14)) !important;
+}
+
+.is-typing .caret {
+  opacity: 1;
+}
