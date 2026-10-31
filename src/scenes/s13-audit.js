@@ -1,7 +1,8 @@
 import { scasSeal } from '../design/logo.js';
 import { headline, revealHeadline, retractHeadline } from '../design/headline.js';
-import { DASHBOARD_DATA, PORTAL_DATA } from '../timeline/cues.js';
+import { DASHBOARD_DATA, PORTAL_DATA, SCENE_BY_ID } from '../timeline/cues.js';
 
+const SCENE = SCENE_BY_ID.s13;
 const A = DASHBOARD_DATA.activity;
 
 const ROWS = [
@@ -61,11 +62,10 @@ function rowMarkup(r, i) {
 
 export default {
   id: 's13',
-  start: 1776,
-  end: 1920,
+  start: SCENE.start,
+  end: SCENE.end,
   build(ctx) {
     const { gsap, content, ia, cam } = ctx;
-    const f = (n) => (n - 1776) / 24;
 
     const scene = document.createElement('div');
     scene.className = 'au';
@@ -80,7 +80,7 @@ export default {
       </header>
 
       <div class="au-eyebrow">Audit · every turn on record</div>
-      <h1 class="display display-sm au-title">Every answer. Accounted for.</h1>
+      <h1 class="display display-sm au-title">Monitor every response.</h1>
 
       <section class="au-card" id="audit-card">
         <header class="au-card__head">
@@ -147,7 +147,7 @@ export default {
       </section>`;
     content.append(scene);
 
-    const hr = headline(['Every answer.', 'Accounted <span class="accent">for.</span>'], {
+    const hr = headline(['Monitor every', 'response.'], {
       className: 'display display-sm',
       top: '100px',
       left: '120px',
@@ -156,8 +156,8 @@ export default {
     scene.querySelector('.au-title').replaceWith(hr);
 
     // Measure the row before entrance transforms.
-    ia.click('#audit-row-1', { at: f(1824), zoom: 1.1, focusDuration: 0.4 });
-    ia.release({ at: f(1860), duration: 0.4 });
+    ia.click('#audit-row-1', { at: 2.0, zoom: 1.1, focusDuration: 0.4 });
+    ia.release({ at: 3.5, duration: 0.4 });
 
     const tl = gsap.timeline();
     const card = scene.querySelector('.au-card');
@@ -184,35 +184,35 @@ export default {
       tl.fromTo(row, { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.34, ease: 'power3.out' }, 0.18 + i * 0.12);
     });
 
-    // Clear the title as the camera commits to row one.
-    retractHeadline(tl, hr, { at: f(1824), duration: 0.24, stagger: 0.04 });
-    tl.to(eyebrow, { opacity: 0, duration: 0.2 }, f(1824));
+    // Clear the title as the camera commits to row one. It is animated once.
+    retractHeadline(tl, hr, { at: 2.0, duration: 0.28, stagger: 0.04 });
+    tl.to(eyebrow, { opacity: 0, duration: 0.24 }, 2.0);
 
     // Open the trace, then lift the table into the frame as the drawer settles.
-    tl.call(() => row1.classList.add('is-open'), null, f(1824));
-    tl.to(detail, { height: 224, opacity: 1, duration: 0.4, ease: 'power3.out' }, f(1824));
-    tl.fromTo(detail, { y: -6 }, { y: 0, duration: 0.4, ease: 'power3.out' }, f(1824));
-    tl.to(cam, { y: -208, duration: 0.4, ease: 'power3.inOut' }, f(1824));
+    tl.call(() => row1.classList.add('is-open'), null, 2.0);
+    tl.to(detail, { height: 224, opacity: 1, duration: 0.4, ease: 'power3.out' }, 2.0);
+    tl.fromTo(detail, { y: -6 }, { y: 0, duration: 0.4, ease: 'power3.out' }, 2.0);
+    tl.to(cam, { y: -208, duration: 0.4, ease: 'power3.inOut' }, 2.0);
     tl.fromTo(
       [...scene.querySelectorAll('.au-detail__asked, .au-detail__answer')],
       { y: 8, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.3, stagger: 0.08, ease: 'power2.out' },
-      f(1826)
+      2.08
     );
     tl.fromTo(
       chain,
       { y: 8, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.26, stagger: 0.07, ease: 'power2.out' },
-      f(1834)
+      2.42
     );
-    tl.fromTo(replay, { opacity: 0 }, { opacity: 1, duration: 0.22 }, f(1832));
+    tl.fromTo(replay, { opacity: 0 }, { opacity: 1, duration: 0.22 }, 2.33);
     tl.set(scene.querySelector('#au-verified'), { opacity: 0, scale: 0.94 }, 0);
-    tl.set(scene.querySelector('#au-verified'), { opacity: 0, scale: 0.94 }, f(1860));
-    tl.to(scene.querySelector('#au-verified'), { opacity: 1, scale: 1, duration: 0.2, ease: 'back.out(2)' }, f(1872));
+    tl.set(scene.querySelector('#au-verified'), { opacity: 0, scale: 0.94 }, 3.5);
+    tl.to(scene.querySelector('#au-verified'), { opacity: 1, scale: 1, duration: 0.2, ease: 'back.out(2)' }, 4.0);
 
     // Replay scrubber: one pass to the chime.
-    tl.fromTo(fill, { scaleX: 0 }, { scaleX: 1, duration: 1.9, ease: 'none', transformOrigin: '0% 50%' }, f(1860));
-    tl.fromTo(head, { left: '0%' }, { left: '100%', duration: 1.9, ease: 'none' }, f(1860));
+    tl.fromTo(fill, { scaleX: 0 }, { scaleX: 1, duration: 1.9, ease: 'none', transformOrigin: '0% 50%' }, 3.5);
+    tl.fromTo(head, { left: '0%' }, { left: '100%', duration: 1.9, ease: 'none' }, 3.5);
     const clockProxy = { p: 0 };
     tl.to(
       clockProxy,
@@ -224,20 +224,18 @@ export default {
           clock.textContent = `0:${String(Math.round(clockProxy.p * 42)).padStart(2, '0')}`;
         },
       },
-      f(1860)
+      3.5
     );
-    const beats = [1864, 1876, 1886, 1902];
-    beats.forEach((frame, i) => {
-      tl.call(() => markers[i]?.classList.add('is-on'), null, f(frame));
+    const beats = [3.667, 4.167, 4.583, 5.25];
+    beats.forEach((at, i) => {
+      tl.call(() => markers[i]?.classList.add('is-on'), null, at);
     });
 
-    tl.to(scene.querySelector('#au-verified'), { boxShadow: '0 0 0 4px rgba(14,164,122,.1)', duration: 0.2 }, f(1908));
-    tl.to(card, { boxShadow: '0 26px 70px rgba(20,40,80,.09), 0 0 0 1px rgba(47,107,255,.08)', duration: 0.2 }, f(1908));
+    tl.to(scene.querySelector('#au-verified'), { boxShadow: '0 0 0 4px rgba(14,164,122,.1)', duration: 0.2 }, 5.5);
+    tl.to(card, { boxShadow: '0 26px 70px rgba(20,40,80,.09), 0 0 0 1px rgba(47,107,255,.08)', duration: 0.2 }, 5.5);
 
-    // The camera settles back out; the title returns to close the scene.
-    tl.to(cam, { y: 0, duration: 0.4, ease: 'power3.inOut' }, f(1860));
-    revealHeadline(tl, hr, { at: f(1872), duration: 0.5, stagger: 0.04 });
-    tl.fromTo(eyebrow, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'power2.out' }, f(1870));
+    // The camera settles back out and holds the trace.
+    tl.to(cam, { y: 0, duration: 0.4, ease: 'power3.inOut' }, 3.5);
 
     return tl;
   },

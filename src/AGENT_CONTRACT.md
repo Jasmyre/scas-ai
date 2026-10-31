@@ -4,7 +4,7 @@ Read this before writing code. The foundation is frozen; these rules prevent mer
 
 ## The film
 
-- 1920×1080, 24 FPS, 88.000s, 2,112 frames.
+- 1920×1080, 24 FPS, 116.000s, 2,784 frames.
 - 120 BPM. 1 bar = 48 frames = 2s. Cuts land on the bar grid.
 - Light mode only. No dark hero shots, no voiceover, no pricing, no CTA, no body-copy paragraphs.
 - Headlines are the narration. All other text is mocked product UI.
@@ -113,7 +113,7 @@ If you need a shared change, report it in your final message instead of editing.
 
 ## Testing
 
-Use a unique port per agent. Never run the full 2,112-frame render.
+Use a unique port per agent. Never run the full 2,784-frame render.
 
 ```bash
 node tools/shoot-scene.mjs --scene=s09 --frames=900,1000,1100 --port=5191

@@ -1,5 +1,8 @@
 import { scasSeal } from '../design/logo.js';
 import { headline, revealHeadline, retractHeadline } from '../design/headline.js';
+import { SCENE_BY_ID } from '../timeline/cues.js';
+
+const SCENE = SCENE_BY_ID.s07;
 
 const LAYERS = [
   {
@@ -42,11 +45,11 @@ const SHIELD_OK = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" s
 
 export default {
   id: 's07',
-  start: 720,
-  end: 864,
+  start: SCENE.start,
+  end: SCENE.end,
   build(ctx) {
     const { gsap, content, ia } = ctx;
-    const f = (n) => (n - 720) / 24;
+    const f = (n) => (n - SCENE.start) / 24;
 
     const scene = document.createElement('div');
     scene.className = 'gr';
@@ -61,7 +64,7 @@ export default {
       </header>
 
       <div class="gr-eyebrow">Guardrails · answer policy</div>
-      <h1 class="display display-md gr-title">Grounded. Or silent.</h1>
+      <h1 class="display display-sm gr-title">It responds with relevant &amp; reliable information.</h1>
 
       <div class="gr-body">
         <section class="gr-console">
@@ -152,12 +155,15 @@ export default {
       </div>`;
     content.append(scene);
 
-    const hr = headline(['Grounded. Or silent.'], {
-      className: 'display display-md',
-      top: '108px',
-      left: '120px',
-      width: '1500px',
-    });
+    const hr = headline(
+      ['It responds with relevant &', 'reliable information.'],
+      {
+        className: 'display display-sm',
+        top: '96px',
+        left: '120px',
+        width: '1660px',
+      }
+    );
     scene.querySelector('.gr-title').replaceWith(hr);
 
     // Measure targets before any entrance transform. Every push-in is clamped to
@@ -165,11 +171,11 @@ export default {
     // field would park the camera on bare page. Clamping keeps the console's
     // bottom edge flush and crops the (already established) header instead.
     const frame = { clamp: '.gr-console' };
-    ia.type('#guardrail-prompt', "Show me another student's grades", { at: f(744), cps: 12, zoom: 1.55, ...frame });
-    ia.click('#guardrail-send', { at: f(812), zoom: 1.5, focusDuration: 0.26, ...frame });
-    ia.type('#guardrail-prompt', 'How do I clear my account?', { at: f(820), cps: 18, zoom: 1.45, ...frame });
-    ia.click('#guardrail-send', { at: f(858), zoom: 1.45, focusDuration: 0.1, ...frame });
-    ia.release({ at: f(860), duration: 0.12 });
+    ia.type('#guardrail-prompt', "Show me another student's grades", { at: f(778), cps: 16, zoom: 1.55, ...frame });
+    ia.click('#guardrail-send', { at: f(824), zoom: 1.5, focusDuration: 0.26, ...frame });
+    ia.type('#guardrail-prompt', 'How do I clear my account?', { at: f(830), cps: 18, zoom: 1.45, ...frame });
+    ia.click('#guardrail-send', { at: f(865), zoom: 1.45, focusDuration: 0.1, ...frame });
+    ia.release({ at: f(866), duration: 0.12 });
 
     const tl = gsap.timeline();
 
@@ -184,19 +190,19 @@ export default {
 
     tl.fromTo(scene.querySelector('.gr-head'), { y: -14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: 'power2.out' }, 0);
     tl.fromTo(scene.querySelector('.gr-eyebrow'), { opacity: 0 }, { opacity: 1, duration: 0.28 }, 0.1);
-    revealHeadline(tl, hr, { at: 0.04, duration: 0.56, stagger: 0.05 });
-    retractHeadline(tl, hr, { at: 0.6, duration: 0.3 });
-    tl.to(scene.querySelector('.gr-eyebrow'), { opacity: 0, duration: 0.24 }, 0.6);
+    revealHeadline(tl, hr, { at: 0.04, duration: 0.5, stagger: 0.045 });
+    retractHeadline(tl, hr, { at: 2.0, duration: 0.28 });
+    tl.to(scene.querySelector('.gr-eyebrow'), { opacity: 0, duration: 0.24 }, 2.0);
 
-    tl.fromTo(scene.querySelector('.gr-console'), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }, 0.08);
-    tl.fromTo(scene.querySelector('.gr-stack'), { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.44, ease: 'power3.out' }, 0.16);
+    tl.fromTo(scene.querySelector('.gr-console'), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }, 0.1);
+    tl.fromTo(scene.querySelector('.gr-stack'), { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.44, ease: 'power3.out' }, 0.18);
     // The recent-runs panel used to fade at 0.82s, which left ~300px of dead
     // console above the answer for the whole test beat. It now stays: past runs
     // are the context that makes the refused run read as a pattern.
 
     // The push-in leaves the rail fully outside the frame; retire it so the
     // tighter zoom never catches a sliver of the column at the right edge.
-    tl.set(scene.querySelector('.gr-stack'), { opacity: 0 }, f(752));
+    tl.set(scene.querySelector('.gr-stack'), { opacity: 0 }, f(782));
 
     // Four ticks, four layers.
     layers.forEach((layer, i) => {
@@ -204,43 +210,48 @@ export default {
     });
 
     // First run: refuse the cross-student request.
-    tl.set(idle, { opacity: 0 }, f(812));
-    tl.set(block, { opacity: 1 }, f(812));
-    tl.fromTo(block, { y: 8, scale: 0.985 }, { y: 0, scale: 1, duration: 0.22, ease: 'power3.out' }, f(812));
-    tl.set(answer, { borderColor: 'rgba(229,72,77,.32)', backgroundColor: '#fffdfd' }, f(812));
+    tl.set(idle, { opacity: 0 }, f(824));
+    tl.set(block, { opacity: 1 }, f(824));
+    tl.fromTo(block, { y: 8, scale: 0.985 }, { y: 0, scale: 1, duration: 0.22, ease: 'power3.out' }, f(824));
+    tl.set(answer, { borderColor: 'rgba(229,72,77,.32)', backgroundColor: '#fffdfd' }, f(824));
     tl.call(() => {
       runLabel.textContent = '01';
       stateLabel.textContent = 'Blocked · scope';
       stateLabel.classList.add('is-block');
       scene.querySelector('.gr-layer[data-layer="scope"]').classList.add('is-block');
-    }, null, f(812));
+    }, null, f(824));
     tl.fromTo(
       scene.querySelector('.gr-face--block .gr-face__icon'),
       { scale: 0.86 },
       { scale: 1, duration: 0.2, ease: 'back.out(2.4)', transformOrigin: '50% 50%' },
-      f(816)
+      f(828)
     );
-    tl.to(caret, { opacity: 0, duration: 0.08 }, f(812));
+    tl.to(caret, { opacity: 0, duration: 0.08 }, f(824));
 
     // Second run: own-record clearance question, grounded and cited.
-    tl.set(block, { opacity: 0 }, f(858));
-    tl.set(pass, { opacity: 1 }, f(858));
-    tl.fromTo(pass, { y: 8, scale: 0.985 }, { y: 0, scale: 1, duration: 0.22, ease: 'power3.out' }, f(858));
-    tl.set(answer, { borderColor: 'rgba(14,164,122,.34)', backgroundColor: '#fdfefd' }, f(858));
+    tl.set(block, { opacity: 0 }, f(865));
+    tl.set(pass, { opacity: 1 }, f(865));
+    tl.fromTo(pass, { y: 8, scale: 0.985 }, { y: 0, scale: 1, duration: 0.22, ease: 'power3.out' }, f(865));
+    tl.set(answer, { borderColor: 'rgba(14,164,122,.34)', backgroundColor: '#fdfefd' }, f(865));
     tl.call(() => {
       stateLabel.textContent = 'Grounded · cited';
       stateLabel.classList.remove('is-block');
       stateLabel.classList.add('is-pass');
       scene.querySelector('.gr-layer[data-layer="scope"]').classList.remove('is-block');
       scene.querySelector('.gr-layer[data-layer="grounding"]').classList.add('is-pass');
-    }, null, f(858));
-    tl.set(scene.querySelector('.gr-cite'), { opacity: 1, y: 0 }, f(858));
+    }, null, f(865));
+    tl.set(scene.querySelector('.gr-cite'), { opacity: 1, y: 0 }, f(865));
     tl.fromTo(
       scene.querySelector('.gr-cite'),
       { scale: 1 },
       { scale: 1.045, duration: 0.1, yoyo: true, repeat: 1, ease: 'sine.inOut', transformOrigin: '0% 50%' },
-      f(862)
+      f(869)
     );
+
+    // Hold the grounded answer on screen: the scene now runs to 8s so the
+    // response is readable instead of flashing for a quarter of a second.
+    tl.to(scene.querySelector('.gr-console'), { y: -5, duration: 1.7, ease: 'sine.inOut' }, f(870));
+    tl.to(scene.querySelector('.gr-stack'), { y: -4, duration: 1.7, ease: 'sine.inOut' }, f(870));
 
     return tl;
   },

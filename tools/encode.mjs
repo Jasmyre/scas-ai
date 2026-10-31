@@ -18,6 +18,7 @@ import {
   FRAMES_DIR,
   AUDIO_MASTER,
   VIDEO,
+  DURATION,
   TOTAL_FRAMES,
   parseArgs,
   pad,
@@ -35,7 +36,7 @@ const audioFile = path.resolve(String(explicitAudio && explicitAudio !== 'none' 
 const loudnorm = cli.has('loudnorm');
 const crf = String(cli.num('crf', 16));
 const preset = String(cli.get('preset', 'slow'));
-const expectedDuration = cli.num('expected-duration', 88);
+const expectedDuration = cli.num('expected-duration', DURATION);
 const expectedFrames = Math.round(expectedDuration * 24);
 const reportPath = path.join(OUT, 'encode-report.json');
 
@@ -266,7 +267,7 @@ check('profile is High', String(v?.profile).toLowerCase() === 'high', v?.profile
 check('1920x1080', v?.width === 1920 && v?.height === 1080, `${v?.width}x${v?.height}`);
 check('24 fps CFR', fps === '24/1', fps);
 check('yuv420p', v?.pix_fmt === 'yuv420p', v?.pix_fmt);
-check('pixel count is 2112 frames', nbFrames === expectedFrames, `${nbFrames} / ${expectedFrames}`);
+check(`pixel count is ${TOTAL_FRAMES} frames`, nbFrames === expectedFrames, `${nbFrames} / ${expectedFrames}`);
 check(
   `duration ${expectedDuration.toFixed(1)}s ±0.1`,
   Number.isFinite(duration) && Math.abs(duration - expectedDuration) <= 0.1,

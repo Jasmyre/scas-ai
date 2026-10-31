@@ -75,7 +75,7 @@ export default {
       </header>
 
       <div class="know-eyebrow">Knowledge · ingestion pipeline</div>
-      <h1 class="display display-md know-title">Feed it everything.</h1>
+      <h1 class="display display-md know-title">Upload relevant context.</h1>
 
       <div class="know-body">
         <div class="know-left">
@@ -159,11 +159,11 @@ export default {
     const head = scene.querySelector('.know-head');
     const eyebrow = scene.querySelector('.know-eyebrow');
     const titleEl = scene.querySelector('.know-title');
-    const hr = headline(['Feed it everything.'], {
-      className: 'display display-md',
+    const hr = headline(['Upload relevant context.'], {
+      className: 'display display-sm',
       top: '104px',
       left: '120px',
-      width: '1400px',
+      width: '1700px',
     });
     titleEl.replaceWith(hr);
     revealHeadline(tl, hr, { at: 0.05, duration: 0.62, stagger: 0.06 });
@@ -194,13 +194,15 @@ export default {
       { src: 'txt', at: f(660), tile: tiles[2] },
     ];
 
-    // Sources fly in.
+    // Sources fly in. Pre-hide at build time so a card can never be visible
+    // before its entrance tween runs (fromTo alone renders late on some frames).
+    gsap.set(tiles, { opacity: 0 });
     tiles.forEach((tile, i) => {
       tl.fromTo(
         tile,
         { x: -70, y: -8, rotateZ: -2.5, opacity: 0 },
-        { x: 0, y: 0, rotateZ: 0, opacity: 1, duration: 0.48, ease: 'power3.out' },
-        f(578 + i * 8)
+        { x: 0, y: 0, rotateZ: 0, opacity: 1, duration: 0.48, ease: 'power3.out', immediateRender: false },
+        0.62 + i * 0.34
       );
     });
     scene.querySelectorAll('.know-chip').forEach((chip, i) => {

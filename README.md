@@ -1,6 +1,6 @@
-# SCAS AI — 88s Launch Film
+# SCAS AI — 116s Launch Film
 
-Code-generated product film for the SCAS AI Assistant. 1920×1080, locked 24 FPS, 88.000s (2,112 frames), 120 BPM sound design.
+Code-generated product film for the SCAS AI Assistant. 1920×1080, locked 24 FPS, 116.000s (2,784 frames), 120 BPM sound design.
 
 ## Commands
 
@@ -9,7 +9,7 @@ npm install
 npm run dev          # realtime preview with scrubber
 npm run render:stills # key frames for review
 npm run audio        # synthesize music + SFX
-npm run render       # 2,112 frames through Playwright
+npm run render       # 2,784 frames through Playwright
 npm run encode       # H.264 + AAC MP4
 npm run verify       # ffprobe + audio report
 npm run pipeline     # audio → render → encode → verify

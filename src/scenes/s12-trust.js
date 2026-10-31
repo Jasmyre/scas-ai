@@ -94,13 +94,15 @@ export default {
       </div>`;
     ctx.content.append(root);
 
-    const head = headline([{ text: 'Yours alone<span class="ts-accent">.</span>' }], {
+    const head = headline([{ text: 'Private to you<span class="ts-accent">.</span>' }], {
       className: 'display ts-head ts-s12__head',
       top: '104px',
       left: '120px',
-      width: '1500px',
+      width: '1600px',
     });
-    root.append(head);
+    // Screen-fixed: appended to the scene shell, above the camera, so the
+    // camera dolly can never crop or hide it. It is revealed once, late.
+    ctx.layer.el.append(head);
 
     const host = root.querySelector('.ts-s12__host');
     const token = root.querySelector('.ts-s12__token');
@@ -123,13 +125,9 @@ export default {
     gsap.set(token, { x: 550, y: 605, opacity: 0, scale: 0.92 });
     gsap.set(key, { opacity: 0, scale: 0.55, rotation: -74 });
     gsap.set([shock, spark], { opacity: 0 });
-    gsap.set(inner, { opacity: 1, yPercent: 0, skewY: 1.4, letterSpacing: '0.08em' });
+    gsap.set(inner, { opacity: 0, yPercent: 118, skewY: 4, letterSpacing: '0.06em' });
 
     const tl = gsap.timeline();
-
-    // Headline is on screen at frame one, then hands the frame to the proof.
-    tl.to(inner, { skewY: 0, letterSpacing: '-0.045em', duration: 1, ease: 'power4.out' }, 0.02);
-    tl.to(inner, { yPercent: -118, skewY: -3, opacity: 0, duration: 0.34, ease: 'power3.in' }, 1.56);
 
     // Prop build-out.
     tl.to(host, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.18);
@@ -148,8 +146,8 @@ export default {
     tl.to(token, { scale: 1.16, duration: 0.72, ease: 'sine.inOut' }, 1.15);
     tl.to(token, { scale: 0.94, duration: 0.26, ease: 'power2.inOut' }, 1.62);
 
-    // f1680 · the token folds into a key. Two-frame hold on the lock.
-    const lockAt = (1680 - scene.start) / 24; // 2.0
+    // f2112 · the token folds into a key. Two-frame hold on the lock.
+    const lockAt = 2.0;
     tl.to(token, { scaleX: 0.3, scaleY: 0.06, opacity: 0, duration: 0.11, ease: 'power3.in' }, 1.88);
     tl.fromTo(
       key,
@@ -165,8 +163,8 @@ export default {
     tl.to(key, { opacity: 0, scale: 0.42, duration: 0.2, ease: 'power2.in' }, 2.92);
     tl.to(dialRing, { rotation: 120, duration: 0.4, ease: 'power3.inOut' }, 2.94);
 
-    // f1704 · vault unlock. Six-frame pulse.
-    const unlockAt = (1704 - scene.start) / 24; // 3.0
+    // f2136 · vault unlock. Six-frame pulse.
+    const unlockAt = 3.0;
     tl.fromTo(
       shock,
       { scale: 0.55, opacity: 0.85 },
@@ -203,20 +201,18 @@ export default {
     tl.to(vault, { y: -6, duration: 2.6, ease: 'sine.inOut' }, 3.4);
     tl.to(dialRing, { rotation: 138, duration: 2.6, ease: 'sine.inOut' }, 3.4);
 
-    // Title returns over the proof.
-    tl.fromTo(
+    // Title lands once, over the proof, and stays until the cut.
+    tl.to(
       inner,
-      { yPercent: 120, skewY: 4, opacity: 0, letterSpacing: '0.08em' },
       {
         yPercent: 0,
         skewY: 0,
         opacity: 1,
         letterSpacing: '-0.045em',
-        duration: 0.7,
+        duration: 0.72,
         ease: 'power4.out',
-        immediateRender: false,
       },
-      4.5
+      3.55
     );
 
     return tl;

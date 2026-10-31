@@ -1,4 +1,4 @@
-import { PORTAL_DATA } from '../timeline/cues.js';
+import { PORTAL_DATA, SCENE_BY_ID } from '../timeline/cues.js';
 import { createPortal, portalRowSelector } from '../ui/portal/index.js';
 import {
   createChatWidget,
@@ -18,10 +18,12 @@ import {
 const CAL_ICON = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15.5" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 9.6h17M8 3.4v3.2M16 3.4v3.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
 const SHIELD_ICON = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3.2 19 6v6c0 4.3-3 7.3-7 8.8-4-1.5-7-4.5-7-8.8V6l7-2.8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>`;
 
+const SCENE = SCENE_BY_ID.s08;
+
 export default {
   id: 's08',
-  start: 864,
-  end: 1104,
+  start: SCENE.start,
+  end: SCENE.end,
   build(ctx) {
     const { gsap, cam, content, ia } = ctx;
     const tl = gsap.timeline();

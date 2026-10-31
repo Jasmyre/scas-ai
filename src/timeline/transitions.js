@@ -9,13 +9,16 @@ export const CUTS = [
   { frame: 432, type: 'flash', strength: 0.32, blur: 6 },
   { frame: 576, type: 'ripple', strength: 0.45, blur: 8 },
   { frame: 720, type: 'whip', blur: 8, dir: 'left' },
-  { frame: 864, type: 'flash', strength: 0.62, blur: 10 },
-  { frame: 1104, type: 'whip', blur: 7, dir: 'right' },
-  { frame: 1296, type: 'flash', strength: 0.3, blur: 6 },
-  { frame: 1488, type: 'whip', blur: 9, dir: 'up' },
-  { frame: 1632, type: 'flash', strength: 0.48, blur: 10 },
-  { frame: 1776, type: 'whip', blur: 7, dir: 'left' },
-  { frame: 1920, type: 'impact', strength: 1.0, blur: 14 },
+  { frame: 912, type: 'flash', strength: 0.62, blur: 10 },
+  { frame: 1152, type: 'whip', blur: 7, dir: 'right' },
+  { frame: 1344, type: 'flash', strength: 0.3, blur: 6 },
+  { frame: 1632, type: 'whip', blur: 9, dir: 'up' },
+  { frame: 1776, type: 'flash', strength: 0.42, blur: 9 },
+  { frame: 1920, type: 'whip', blur: 7, dir: 'left' },
+  { frame: 2064, type: 'flash', strength: 0.5, blur: 11 },
+  { frame: 2208, type: 'impact', strength: 1.0, blur: 14 },
+  { frame: 2352, type: 'whip', blur: 8, dir: 'right' },
+  { frame: 2544, type: 'ripple', strength: 0.55, blur: 9 },
 ];
 
 const F = 1 / 24;

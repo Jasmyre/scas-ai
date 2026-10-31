@@ -24,8 +24,22 @@ export function createInteraction({ layer, scene }) {
   cursor.style.opacity = '0';
   cursorLayer.append(cursor);
 
+  /**
+   * Resolve a target inside THIS scene first.
+   *
+   * Every portal/chat scene reuses the same ids (#chat-input, #chat-send,
+   * #portal-row-*…). A document-wide query returns the first match in the DOM —
+   * usually the hidden widget from an earlier scene — so the cursor, zoom and
+   * typewriter would drive an element nobody can see. Scope to the scene layer
+   * and only fall back to the document for targets mounted elsewhere.
+   */
+  function resolve(selector) {
+    if (typeof selector !== 'string') return selector;
+    return layer.el.querySelector(selector) || document.querySelector(selector);
+  }
+
   function rectOf(selector) {
-    const el = typeof selector === 'string' ? document.querySelector(selector) : selector;
+    const el = resolve(selector);
     if (!el) {
       console.warn(`[interaction:${scene.id}] missing target`, selector);
       return { left: 860, top: 480, width: 200, height: 60, cx: 960, cy: 510 };
@@ -80,7 +94,7 @@ export function createInteraction({ layer, scene }) {
   }
 
   function press(selector, at) {
-    const el = typeof selector === 'string' ? document.querySelector(selector) : selector;
+    const el = resolve(selector);
     if (!el) return;
     tl.fromTo(
       el,
@@ -182,7 +196,7 @@ export function createInteraction({ layer, scene }) {
   }
 
   function type(selector, text, { at = 0, cps = 12, zoom = 1.8, focusDuration = 0.28, dof = true, blur = 9, clamp = null } = {}) {
-    const el = typeof selector === 'string' ? document.querySelector(selector) : selector;
+    const el = resolve(selector);
     if (!el) {
       console.warn(`[interaction:${scene.id}] missing type target`, selector);
       return at;
@@ -256,7 +270,7 @@ export function createInteraction({ layer, scene }) {
   }
 
   function highlight(selector, { at = 0, duration = 0.45, color = 'rgba(47,107,255,.14)' } = {}) {
-    const el = typeof selector === 'string' ? document.querySelector(selector) : selector;
+    const el = resolve(selector);
     if (!el) return;
     if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
     const overlay = document.createElement('div');

@@ -2612,3 +2612,298 @@
   color: #b0b7c2;
   white-space: nowrap;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   S11d — FEATURES
+   Four product surfaces that live beside the chat: announcements,
+   notifications, the grade calculator and the clearance tracker.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.ft {
+  position: absolute;
+  inset: 0;
+  background: #f6f6f4;
+  font-family: var(--font-ui);
+  color: var(--ink);
+  overflow: hidden;
+}
+
+.ft-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(30, 60, 110, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 88%, transparent 100%);
+}
+
+.ft-bloom {
+  position: absolute;
+  left: 620px;
+  top: -220px;
+  width: 900px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(47, 107, 255, 0.1), rgba(47, 107, 255, 0) 68%);
+  pointer-events: none;
+}
+
+.ft-head {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 66px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 32px;
+  background: rgba(255, 255, 255, 0.82);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  z-index: 12;
+}
+
+.ft-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding-right: 16px;
+  border-right: 1px solid var(--line);
+}
+
+.ft-brand b {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.ft-brand span {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ft-crumb {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.ft-policy {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand);
+  background: #eef3ff;
+  border-radius: 999px;
+  padding: 6px 12px;
+}
+
+.ft-policy i {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--brand);
+}
+
+.ft-eyebrow {
+  position: absolute;
+  top: 108px;
+  left: 120px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8b93a1;
+}
+
+.ft-title {
+  position: absolute;
+  top: 132px;
+  left: 118px;
+  width: 1400px;
+  margin: 0;
+}
+
+.ft-grid {
+  position: absolute;
+  top: 400px;
+  left: 120px;
+  display: flex;
+  gap: 28px;
+}
+
+.ft-card {
+  position: relative;
+  width: 396px;
+  height: 470px;
+  padding: 26px 26px 0;
+  border-radius: 22px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  box-shadow: 0 22px 56px rgba(20, 40, 80, 0.08), 0 1px 3px rgba(20, 40, 80, 0.04);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ft-card.is-live {
+  border-color: rgba(47, 107, 255, 0.4);
+  box-shadow: 0 26px 64px rgba(47, 107, 255, 0.16), 0 0 0 1px rgba(47, 107, 255, 0.2);
+}
+
+.ft-card__num {
+  position: absolute;
+  top: 24px;
+  right: 26px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #c3c9d4;
+}
+
+.ft-card__ico {
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  background: #eef3ff;
+  border: 1px solid #e1e9ff;
+  color: var(--brand);
+  margin-bottom: 22px;
+}
+
+.ft-card__label {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8b93a1;
+}
+
+.ft-card__value {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: 46px;
+  font-weight: 840;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.ft-card__value span {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--brand);
+}
+
+.ft-card__sub {
+  display: block;
+  margin-top: 12px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: #7b8290;
+}
+
+.ft-card__preview {
+  margin: auto -26px 0;
+  padding: 16px 26px 22px;
+  background: #fafbfe;
+  border-top: 1px solid rgba(11, 12, 14, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ft-prev__row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 10px;
+}
+
+.ft-prev__row i {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #cbd2de;
+  flex: none;
+}
+
+.ft-prev__row.is-new i {
+  background: var(--brand);
+  box-shadow: 0 0 0 3px rgba(47, 107, 255, 0.14);
+}
+
+.ft-prev__row.is-warn i {
+  background: #e5484d;
+  box-shadow: 0 0 0 3px rgba(229, 72, 77, 0.13);
+}
+
+.ft-prev__row.is-ok i {
+  background: #0ea47a;
+  box-shadow: 0 0 0 3px rgba(14, 164, 122, 0.13);
+}
+
+.ft-prev__row b {
+  font-weight: 620;
+  color: #3b424e;
+}
+
+.ft-prev__row em {
+  margin-left: auto;
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #9aa1ac;
+}
+
+.ft-meter {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: #e9edf4;
+  margin: 26px 0 6px;
+}
+
+.ft-meter__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 62%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #7ea2ff, var(--brand));
+  transform-origin: 0% 50%;
+}
+
+.ft-meter__mark {
+  position: absolute;
+  left: 62%;
+  top: -5px;
+  width: 2px;
+  height: 18px;
+  border-radius: 2px;
+  background: #0b0c0e;
+}
+
+.ft-meter__cap {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #9aa1ac;
+}

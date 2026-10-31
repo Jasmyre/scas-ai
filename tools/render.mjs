@@ -2,7 +2,7 @@
 /**
  * Deterministic frame capture for the SCAS AI launch film.
  *
- *   node tools/render.mjs                     # 2,112 frames -> render/frames
+ *   node tools/render.mjs                     # 2,784 frames -> render/frames
  *   node tools/render.mjs --dry-run           # 2 frames, then exit
  *   node tools/render.mjs --stills            # 28 review stills -> out/stills
  *   node tools/render.mjs --from=864 --to=1103 --resume
@@ -115,7 +115,7 @@ log.config.from = from;
 log.config.to = to;
 
 if (!stillsMode && !dryRun && from === 0 && to === TOTAL_FRAMES - 1) {
-  console.log('full-film render: 2,112 frames at 24 fps (use --dry-run first if this is a smoke test)');
+  console.log('full-film render: 2,784 frames at 24 fps (use --dry-run first if this is a smoke test)');
 }
 
 // ── Target frames ────────────────────────────────────────────────────────────

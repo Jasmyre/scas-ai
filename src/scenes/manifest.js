@@ -9,8 +9,11 @@ import s08 from './s08-portal.js';
 import s09 from './s09-balance.js';
 import s10 from './s10-multimodal.js';
 import s11 from './s11-proactive.js';
+import s11b from './s11b-announcements.js';
+import s11c from './s11c-news.js';
 import s12 from './s12-trust.js';
 import s13 from './s13-audit.js';
+import s11d from './s11d-features.js';
 import s14 from './s14-finale.js';
 
 export const scenes = [
@@ -25,7 +28,10 @@ export const scenes = [
   s09,
   s10,
   s11,
+  s11b,
+  s11c,
   s12,
   s13,
+  s11d,
   s14,
 ];

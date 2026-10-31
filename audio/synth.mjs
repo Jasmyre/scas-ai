@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // ─────────────────────────────────────────────────────────────────────────────
-// SCAS AI — 88s launch score. 120 BPM, A minor, 44 bars, 48k/16-bit stereo.
+// SCAS AI — 116s launch score. 120 BPM, A minor, 58 bars, 48k/16-bit stereo.
 // Everything is synthesized from code and cues.js. No samples, no voiceover.
 //
 //   node audio/synth.mjs            full render + measured normalization
@@ -119,7 +119,7 @@ for (const tick of ticks) {
   const voice = makeSfx('type', { seed: tick.seed });
   const v = (tick.seed % 5) / 5;
   sfxBus.add(tick.time, voice.dur, voice.fn, {
-    gain: 0.24 + v * 0.09,
+    gain: 0.42 + v * 0.12,
     pan: 0.1 + v * 0.2,
     rev: 0.04,
     revBus: sfxRev,
@@ -156,9 +156,9 @@ const airL = new Svf(SR).set(5200, 0.7);
 const airR = new Svf(SR).set(5200, 0.7);
 
 // Music cut 200ms before the finale impact.
-const cutA = 79.82;
-const cutB = 79.9;
-const cutC = 79.99;
+const cutA = 105.82;
+const cutB = 105.9;
+const cutC = 105.99;
 
 for (let i = 0; i < LEN; i += 1) {
   const t = i / SR;

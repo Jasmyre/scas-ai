@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Score builder — 44 bars @ 120 BPM in A minor, derived from cues.MUSIC.
+// Score builder — 58 bars @ 120 BPM in A minor, derived from cues.MUSIC.
 // Bar N covers [N*2s, N*2s + 2s). cues.MUSIC startBar/endBar are 1-indexed and
 // inclusive, so bar 1..3 === 0..6s. See SECTION_MAP below.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -7,7 +7,7 @@
 import { TAU, mtof, noise, Svf, Bus } from './dsp.mjs';
 
 export const BAR_SECONDS = 2;
-export const BARS = 44;
+export const BARS = 58;
 
 // 0-indexed bar ranges, inclusive.
 export const SECTION_MAP = [
@@ -16,14 +16,18 @@ export const SECTION_MAP = [
   { name: 'drop-1', from: 6, to: 8, note: 'kick, bass, clap, hats' },
   { name: 'groove-a', from: 9, to: 11, note: 'full groove' },
   { name: 'knowledge', from: 12, to: 14, note: 'pluck + data ticks' },
-  { name: 'guardrails', from: 15, to: 17, note: 'build, filter sweep' },
-  { name: 'portal-breakdown', from: 18, to: 22, note: 'kick out, warm pad, soft ticks' },
-  { name: 'chat-groove', from: 23, to: 26, note: 'kick returns, tight bass' },
-  { name: 'peak-a', from: 27, to: 30, note: 'peak energy' },
-  { name: 'peak-b', from: 31, to: 33, note: 'peak with counter-melody' },
-  { name: 'trust-tension', from: 34, to: 36, note: 'strip to pulse + riser' },
-  { name: 'audit', from: 37, to: 39, note: 'build' },
-  { name: 'finale', from: 40, to: 43, note: 'impact, shimmer, tail' },
+  { name: 'guardrails', from: 15, to: 18, note: 'build, filter sweep, held answer' },
+  { name: 'portal-breakdown', from: 19, to: 23, note: 'kick out, warm pad, soft ticks' },
+  { name: 'chat-groove', from: 24, to: 27, note: 'kick returns, tight bass' },
+  { name: 'peak-a', from: 28, to: 31, note: 'peak energy' },
+  { name: 'peak-b', from: 32, to: 33, note: 'peak with counter-melody' },
+  { name: 'proactive', from: 34, to: 36, note: 'bright pluck, alert pings' },
+  { name: 'announce', from: 37, to: 39, note: 'raised pad, bulletin ticks' },
+  { name: 'news', from: 40, to: 42, note: 'open groove, wide arp' },
+  { name: 'trust-tension', from: 43, to: 45, note: 'strip to pulse + riser' },
+  { name: 'audit', from: 46, to: 48, note: 'build' },
+  { name: 'features', from: 49, to: 52, note: 'full peak, feature pops' },
+  { name: 'finale', from: 53, to: 57, note: 'impact, shimmer, 8s tail' },
 ];
 
 function sectionOf(bar) {
@@ -48,28 +52,41 @@ const CYCLE = ['Am', 'F', 'C', 'G'];
 const CHORD_NAMES = new Array(BARS);
 for (let b = 0; b < BARS; b += 1) CHORD_NAMES[b] = CYCLE[b % 4];
 const OVERRIDE = {
-  18: 'Am7',
-  19: 'Fmaj7',
-  20: 'Cmaj7',
-  21: 'G',
-  22: 'Fmaj7',
-  23: 'Am',
-  24: 'F',
-  25: 'C',
-  26: 'G',
-  31: 'Am',
-  32: 'F',
-  33: 'G',
-  34: 'Am',
-  35: 'F',
-  36: 'G',
-  37: 'Am',
-  38: 'F',
-  39: 'E',
-  40: 'Am9',
-  41: 'Am9',
-  42: 'Fmaj7',
-  43: 'Am9',
+  19: 'Am7',
+  20: 'Fmaj7',
+  21: 'Cmaj7',
+  22: 'G',
+  23: 'Fmaj7',
+  24: 'Am',
+  25: 'F',
+  26: 'C',
+  27: 'G',
+  32: 'Am',
+  33: 'F',
+  34: 'G',
+  35: 'Am',
+  36: 'F',
+  37: 'G',
+  38: 'Am',
+  39: 'F',
+  40: 'C',
+  41: 'G',
+  42: 'Am',
+  43: 'Am',
+  44: 'F',
+  45: 'G',
+  46: 'Am',
+  47: 'F',
+  48: 'E',
+  49: 'Am9',
+  50: 'Fmaj7',
+  51: 'Cmaj7',
+  52: 'Am9',
+  53: 'Am9',
+  54: 'Am9',
+  55: 'Fmaj7',
+  56: 'Am9',
+  57: 'Am9',
 };
 for (const [k, v] of Object.entries(OVERRIDE)) CHORD_NAMES[Number(k)] = v;
 
@@ -125,6 +142,21 @@ const PARAMS = {
     pad: 0.44, padCut: 3600, padAttack: 0.06, padRelease: 0.28, lead: 1,
     subPulse: 0, subHit: 0,
   },
+  proactive: {
+    kick: 'four', clap: 1, hats: '16', bass: 'tight', arp: 0.8,
+    pad: 0.42, padCut: 3000, padAttack: 0.08, padRelease: 0.3, lead: 0,
+    subPulse: 0, subHit: 0,
+  },
+  announce: {
+    kick: 'four', clap: 1, hats: '16', bass: '8', arp: 0.7,
+    pad: 0.5, padCut: 3400, padAttack: 0.12, padRelease: 0.4, lead: 0,
+    subPulse: 0, subHit: 0,
+  },
+  news: {
+    kick: 'four', clap: 1, hats: '16o', bass: '8', arp: 0.86,
+    pad: 0.44, padCut: 3600, padAttack: 0.08, padRelease: 0.3, lead: 0.35,
+    subPulse: 0, subHit: 0,
+  },
   'trust-tension': {
     kick: 'none', clap: 0, hats: 'sparse', bass: 'none', arp: 0.3,
     pad: 0.5, padCut: 900, padAttack: 0.7, padRelease: 0.6, lead: 0,
@@ -133,6 +165,11 @@ const PARAMS = {
   audit: {
     kick: 'build', clap: 'roll', hats: '16', bass: '8', arp: 0.78,
     pad: 0.4, padCut: 1800, padAttack: 0.1, padRelease: 0.3, lead: 0,
+    subPulse: 0, subHit: 0,
+  },
+  features: {
+    kick: 'four+', clap: 1, hats: '16o', bass: '8', arp: 0.95,
+    pad: 0.46, padCut: 3800, padAttack: 0.06, padRelease: 0.28, lead: 0.6,
     subPulse: 0, subHit: 0,
   },
   finale: {
@@ -425,11 +462,13 @@ export function buildMusic({ sr, len }) {
     const padCut =
       bar <= 2
         ? 380 * (900 / 380) ** (bar / 3)
-        : bar >= 15 && bar <= 17
-          ? 700 * (3600 / 700) ** ((bar - 15) / 3)
+        : bar >= 15 && bar <= 18
+          ? 700 * (3600 / 700) ** ((bar - 15) / 4)
           : bar >= 37 && bar <= 39
             ? 800 * (5000 / 800) ** ((bar - 37) / 3)
-            : p.padCut;
+            : bar >= 49 && bar <= 52
+              ? 2600 * (5200 / 2600) ** ((bar - 49) / 4)
+              : p.padCut;
     for (let i = 0; i < notes.length; i += 1) {
       padNote(bus.pad, t0, notes[i], barDur, {
         gain: p.pad / Math.max(2, notes.length) * 1.9,
@@ -477,17 +516,17 @@ export function buildMusic({ sr, len }) {
       }
     } else if (p.kick === 'half') {
       k(t0, 0.4);
-      if (bar !== 18 && bar !== 22) k(t0 + 1.0, 0.26);
+      if (bar !== 19 && bar !== 23) k(t0 + 1.0, 0.26);
     } else if (p.kick === 'build') {
       for (let b = 0; b < 4; b += 1) k(t0 + b * 0.5, 0.62 + b * 0.06);
     } else if (p.kick === 'heart') {
-      if (bar === 40) {
+      if (bar === 53) {
         k(t0, 1.0);
         k(t0 + 0.375, 0.5);
-      } else if (bar === 41) {
+      } else if (bar === 54) {
         k(t0, 0.55);
         k(t0 + 1.0, 0.28);
-      } else if (bar === 42) {
+      } else if (bar === 55) {
         k(t0, 0.3);
       }
     }
@@ -500,11 +539,11 @@ export function buildMusic({ sr, len }) {
       clap(bus.drums, t0 + 1.5, { gain: 0.54, rnd: rndB, rev: 0.18, revBus: bus.rev, wide: -0.04 });
     } else if (p.clap === 'roll') {
       const rnd = noise(seedBase + 303);
-      const div = bar === 37 ? 2 : bar === 38 ? 4 : 8;
+      const div = bar === 46 ? 2 : bar === 47 ? 4 : 8;
       const step = 0.5 / div;
       for (let i = 0; i < div * 4; i += 1) {
         const tt = t0 + i * step;
-        if (bar === 39 && tt >= 79.75) break;
+        if (bar === 48 && tt >= 97.9) break;
         clap(bus.drums, tt, { gain: 0.12 + 0.05 * (i / (div * 4)) + (i % 4 === 0 ? 0.06 : 0), rnd, rev: 0.1, revBus: bus.rev });
       }
     }
@@ -538,10 +577,10 @@ export function buildMusic({ sr, len }) {
       const pat = p.bass === '8' ? BASS_8 : p.bass === '16' ? BASS_16 : BASS_TIGHT;
       const stepDur = p.bass === '8' ? 0.25 : 0.125;
       const noteDur = p.bass === '8' ? 0.2 : 0.095;
-      const cut = bar >= 15 && bar <= 17 ? 520 * (1600 / 520) ** ((bar - 15) / 3) : 480;
+      const cut = bar >= 15 && bar <= 18 ? 520 * (1600 / 520) ** ((bar - 15) / 4) : 480;
       for (let i = 0; i < pat.steps.length; i += 1) {
         const tt = t0 + pat.steps[i] * stepDur;
-        if (tt >= 79.75) continue;
+        if (tt >= 105.8) continue;
         bassNote(bus.bass, tt, ch.root + pat.offs[i], noteDur, {
           gain: 0.95,
           cutoff: cut,
@@ -554,14 +593,14 @@ export function buildMusic({ sr, len }) {
     // ── arp ────────────────────────────────────────────────────────────────
     if (p.arp > 0) {
       const arpCut =
-        bar >= 15 && bar <= 17
-          ? 900 * (7200 / 900) ** ((bar - 15) / 3)
+        bar >= 15 && bar <= 18
+          ? 900 * (7200 / 900) ** ((bar - 15) / 4)
           : bar >= 37 && bar <= 39
             ? 1100 * (9000 / 1100) ** ((bar - 37) / 3)
             : 2200 + p.arp * 3000;
       for (let s = 0; s < 16; s += 1) {
         const tt = t0 + s * 0.125;
-        if (tt >= 79.75) continue;
+        if (tt >= 105.8) continue;
         if (sec.name === 'portal-breakdown' && s % 2 === 1) continue; // half-time in the breakdown
         const idx = ARP_STEPS[s] % pool.length;
         const accent = s % 4 === 0 ? 1.25 : 1;
@@ -576,7 +615,10 @@ export function buildMusic({ sr, len }) {
     }
 
     // ── counter-melody ─────────────────────────────────────────────────────
-    if (p.lead > 0 && (sec.name === 'portal-breakdown' || sec.name === 'peak-b')) {
+    if (
+      p.lead > 0 &&
+      (sec.name === 'portal-breakdown' || sec.name === 'peak-b' || sec.name === 'features')
+    ) {
       const motif =
         sec.name === 'portal-breakdown'
           ? bar === 19 || bar === 20
@@ -584,11 +626,17 @@ export function buildMusic({ sr, len }) {
             : bar === 21 || bar === 22
               ? MOTIF_B
               : null
-          : bar === 31 || bar === 32
-            ? MOTIF_A
-            : bar === 33
-              ? MOTIF_B
-              : null;
+          : sec.name === 'features'
+            ? bar === 49 || bar === 50
+              ? MOTIF_A
+              : bar === 51 || bar === 52
+                ? MOTIF_B
+                : null
+            : bar === 32
+              ? MOTIF_A
+              : bar === 33
+                ? MOTIF_B
+                : null;
       if (motif) {
         for (const [beat, dur, midi] of motif) {
           leadNote(bus.lead, t0 + beat * 0.5, midi, dur * 0.5, {
@@ -612,13 +660,13 @@ export function buildMusic({ sr, len }) {
   }
 
   // ── transitions ────────────────────────────────────────────────────────────
-  // Reverse risers into the three structural cuts (12s, 36s, 80s).
+  // Reverse risers into the structural cuts (12s dashboard, 38s portal, 106s finale).
   riser(bus.pad, 8.0, 4.0, { gain: 0.3, seed: 101, revBus: bus.rev });
-  riser(bus.pad, 33.0, 3.0, { gain: 0.24, seed: 202, revBus: bus.rev });
-  riser(bus.pad, 76.0, 4.0, { gain: 0.34, seed: 303, endHz: 11000, revBus: bus.rev });
+  riser(bus.pad, 34.0, 4.0, { gain: 0.24, seed: 202, revBus: bus.rev });
+  riser(bus.pad, 102.0, 4.0, { gain: 0.34, seed: 303, endHz: 11000, revBus: bus.rev });
 
   // Small reverse swells into every other bar-grid cut.
-  const cuts = [6, 18, 24, 30, 46, 54, 62, 68, 74];
+  const cuts = [8, 18, 30, 48, 68, 80, 92];
   let si = 400;
   for (const c of cuts) {
     swell(bus.pad, c - 0.9, 0.9, { gain: 0.1, seed: si++, revBus: bus.rev });
@@ -628,21 +676,23 @@ export function buildMusic({ sr, len }) {
   const hits = [
     [12, 0.42],
     [24, 0.22],
-    [36, 0.5],
-    [46, 0.3],
-    [54, 0.24],
-    [62, 0.3],
-    [68, 0.22],
-    [74, 0.26],
-    [80, 0.72],
+    [38, 0.5],
+    [48, 0.3],
+    [56, 0.24],
+    [68, 0.3],
+    [74, 0.22],
+    [86, 0.26],
+    [98, 0.3],
+    [106, 0.72],
   ];
   for (const [t, g] of hits) subImpact(bus.sub, t, { gain: g, rev: 0.08, revBus: bus.rev });
 
   // Intro air bed + a final room tone for the tail.
   airBed(bus.pad, 0.2, 6.0, { gain: 0.05, seed: 909 });
+  airBed(bus.pad, 106.4, 8.0, { gain: 0.035, seed: 808 });
 
   // ── cut-out 0.2s before the finale impact ─────────────────────────────────
-  marks.push({ t: 79.8, kind: 'music-cut' });
+  marks.push({ t: 105.8, kind: 'music-cut' });
 
   return { ...bus, kicks, marks, sections: SECTION_MAP, chords: CHORD_NAMES };
 }

@@ -566,3 +566,195 @@
   pointer-events: none;
   z-index: 58;
 }
+
+/* ── Bulletin board (s11b announcements · s11c news) ──────────────────────── */
+
+.bulletin {
+  position: absolute;
+  z-index: 54;
+  left: 96px;
+  width: 1000px;
+  padding: 26px 28px 22px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 34px 90px rgba(16, 24, 40, 0.14), 0 2px 8px rgba(16, 24, 40, 0.05);
+  backdrop-filter: blur(20px);
+  color: #0b0c0e;
+  font-family: var(--font-ui);
+}
+
+.bulletin__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(11, 12, 14, 0.07);
+}
+
+.bulletin__titles {
+  min-width: 0;
+}
+
+.bulletin__eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8b93a1;
+}
+
+.bulletin__title {
+  margin: 6px 0 0;
+  font-family: var(--font-display);
+  font-weight: 820;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.bulletin__count {
+  flex: none;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #2f6bff;
+  background: #eef4ff;
+  border-radius: 999px;
+  padding: 6px 11px;
+}
+
+.bulletin__list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding-top: 16px;
+}
+
+.bulletin__row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 15px 18px;
+  border-radius: 15px;
+  background: #fafbfe;
+  border: 1px solid rgba(11, 12, 14, 0.06);
+}
+
+.bulletin__row.is-hot {
+  background: #f0f5ff;
+  border-color: rgba(47, 107, 255, 0.24);
+  box-shadow: 0 10px 26px rgba(47, 107, 255, 0.1);
+}
+
+.bulletin__date {
+  flex: none;
+  width: 132px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #2f6bff;
+  font-variant-numeric: tabular-nums;
+}
+
+.bulletin__row.is-hot .bulletin__date {
+  color: #1d4ed8;
+}
+
+.bulletin__copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.bulletin__copy b {
+  display: block;
+  font-size: 16px;
+  font-weight: 660;
+  letter-spacing: -0.02em;
+}
+
+.bulletin__copy span {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #7b8290;
+}
+
+.bulletin__pill {
+  flex: none;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #8a93a0;
+  background: #f1f3f7;
+  border-radius: 999px;
+  padding: 5px 9px;
+}
+
+.bulletin__row.is-hot .bulletin__pill {
+  color: #fff;
+  background: #2f6bff;
+}
+
+/* s11c · two oversized news cards instead of a dense list */
+
+.bulletin--cards {
+  width: 1010px;
+  padding-bottom: 24px;
+}
+
+.bulletin--cards .bulletin__list {
+  gap: 14px;
+  padding-top: 20px;
+}
+
+.bulletin--cards .bulletin__row {
+  align-items: flex-start;
+  padding: 24px 24px 22px;
+  gap: 24px;
+}
+
+.bulletin--cards .bulletin__date {
+  width: 150px;
+  font-size: 15px;
+}
+
+.bulletin--cards .bulletin__copy b {
+  font-size: 24px;
+  letter-spacing: -0.03em;
+}
+
+.bulletin--cards .bulletin__copy span {
+  margin-top: 7px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.bulletin__row.is-live {
+  border-color: rgba(47, 107, 255, 0.45);
+  box-shadow: 0 12px 30px rgba(47, 107, 255, 0.14);
+}
+
+.bulletin__row.is-live .bulletin__pill {
+  color: #fff;
+  background: #2f6bff;
+}
+
+/* Frosted stage for the bulletin scenes (s11b · s11c): dims the portal page
+   behind the screen-fixed board + headline without touching the chat widget. */
+.bulletin-wash {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1260px;
+  height: 1080px;
+  z-index: 53;
+  pointer-events: none;
+  backdrop-filter: blur(8px) saturate(0.92);
+  background: linear-gradient(90deg, rgba(251, 252, 254, 0.93) 0%, rgba(251, 252, 254, 0.82) 58%, rgba(251, 252, 254, 0) 100%);
+}

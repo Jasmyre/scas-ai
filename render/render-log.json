@@ -1,14 +1,14 @@
 {
-  "startedAt": "2026-10-27T16:36:39.967Z",
-  "finishedAt": "2026-10-27T16:36:58.428Z",
+  "startedAt": "2026-10-31T02:27:58.671Z",
+  "finishedAt": "2026-10-31T03:02:34.511Z",
   "ok": true,
   "mode": "frames",
   "config": {
     "viewport": "1920x1080",
     "dpr": 1,
     "fps": 24,
-    "from": 1594,
-    "to": 1607,
+    "from": 0,
+    "to": 2783,
     "step": 1,
     "scene": [],
     "output": "C:\\Users\\lanuz\\Documents\\user\\Jazmyre_Andrei\\code\\projects\\scas-ai\\render\\frames",
@@ -17,16 +17,16 @@
     "build": true
   },
   "counts": {
-    "planned": 14,
-    "captured": 14,
+    "planned": 2784,
+    "captured": 2784,
     "skipped": 0,
     "failed": 0
   },
   "timing": {
-    "elapsedMs": 18143,
-    "captureMs": 11796,
-    "renderFps": 1.187,
-    "avgFrameMs": 843
+    "elapsedMs": 2074240,
+    "captureMs": 2068196,
+    "renderFps": 1.346,
+    "avgFrameMs": 743
   },
   "missing": [],
   "failures": [],

@@ -16,7 +16,7 @@ import { OUT, STILLS_DIR, parseArgs, pngInfo, sha256File } from './lib/pipeline.
 
 const cli = parseArgs();
 const dir = path.resolve(String(cli.get('dir', STILLS_DIR)));
-const expected = cli.num('expect', 28);
+const expected = cli.num('expect', 34);
 const strict = cli.has('strict');
 const reportPath = path.join(OUT, 'stills-report.json');
 

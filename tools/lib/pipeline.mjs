@@ -17,8 +17,8 @@ export const FRAMES_DIR = path.join(RENDER, 'frames');
 export const STILLS_DIR = path.join(OUT, 'stills');
 
 export const FPS = 24;
-export const DURATION = 88;
-export const TOTAL_FRAMES = 2112;
+export const DURATION = 116;
+export const TOTAL_FRAMES = 2784;
 export const VIDEO = path.join(OUT, 'scas-ai-showcase-1080p24.mp4');
 export const AUDIO_MASTER = path.join(OUT, 'scas-ai-master.wav');
 

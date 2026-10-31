@@ -1,3 +1,4 @@
+import { SCENE_BY_ID } from '../timeline/cues.js';
 import { createPortal, portalRowSelector } from '../ui/portal/index.js';
 import {
   createChatWidget,
@@ -8,10 +9,12 @@ import {
 } from '../ui/portal/chat.js';
 import { sceneHeadline, revealHeadline, retractHeadline } from '../ui/portal/parts.js';
 
+const SCENE = SCENE_BY_ID.s11;
+
 export default {
   id: 's11',
-  start: 1488,
-  end: 1632,
+  start: SCENE.start,
+  end: SCENE.end,
   build(ctx) {
     const { gsap, cam, content, ia } = ctx;
     const tl = gsap.timeline();
@@ -46,11 +49,11 @@ export default {
     });
     thread.append(greeting, noteSchedule, noteBalance, user, thinking, answer);
 
-    const head = sceneHeadline(ctx, 'It already knew.', {
+    const head = sceneHeadline(ctx, ['Ask about', 'your portal.'], {
       left: 104,
       bottom: 150,
-      width: 1400,
-      size: 120,
+      width: 1000,
+      size: 104,
     });
 
     const badge = chat.querySelector('#chat-badge');
@@ -64,8 +67,8 @@ export default {
     tl.set(answer, { opacity: 0, y: 12 }, 0);
     tl.set(badge, { scale: 1 }, 0);
 
-    // ── The badge pings (f1500), the window opens out of the orb.
-    ia.click('#chat-badge', { at: 0.5, zoom: 1.5, focusDuration: 0.26 });
+    // ── The badge pings (f1644), the window opens out of the orb.
+    ia.click('#chat-badge', { at: 0.5, zoom: 1, move: 0.24 });
     tl.call(() => chat.classList.add('is-open'), null, 0.5);
     tl.fromTo(
       win,
@@ -75,10 +78,17 @@ export default {
     );
     tl.to(launcher, { scale: 0.82, opacity: 0, duration: 0.26, ease: 'power2.in' }, 0.52);
 
-    // Frame the whole widget once it is open.
-    ia.focus('#chat-composer', { at: 0.55, scale: 1.5, duration: 0.36 });
+    // Frame the whole widget once it is open, and keep that framing while the
+    // question is typed so the prompt is legible.
+    ia.focus('#chat-composer', {
+      at: 0.56,
+      scale: 1.34,
+      clamp: '.scene-content',
+      dof: false,
+      duration: 0.4,
+    });
 
-    // ── Two proactive notes land before the student asks anything (f1512 / f1536).
+    // ── Two proactive notes land before the student asks anything (f1656 / f1673).
     tl.fromTo(
       noteSchedule,
       { opacity: 0, y: 14 },
@@ -92,27 +102,26 @@ export default {
       2.0
     );
 
-    // ── Type the question (f1548) and send (f1588).
-    ia.click('#chat-input', { at: 2.5, zoom: 1.3, blur: 3 });
-    ia.type('#chat-input', "What's my schedule?", { at: 2.5, cps: 12, zoom: 1.3, blur: 3 });
-    ia.click('#chat-send', { at: 4.167, zoom: 1.5 });
-    ia.release({ at: 4.417, duration: 0.34 });
+    // ── Type the question (f1685) and send (f1723).
+    ia.click('#chat-input', { at: 2.208, zoom: 1 });
+    ia.type('#chat-input', "What's my schedule?", { at: 2.208, cps: 13, zoom: 1, blur: 0 });
+    ia.click('#chat-send', { at: 3.792, zoom: 1 });
     ia.callback(() => {
       chat.querySelector('#chat-input .field-text').textContent = '';
-    }, 4.2);
+    }, 3.83);
 
     tl.fromTo(
       user,
       { opacity: 0, y: 12 },
       { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out', immediateRender: false },
-      4.18
+      3.82
     );
-    tl.set(thinking, { display: 'flex' }, 4.26);
+    tl.set(thinking, { display: 'flex' }, 3.9);
     tl.fromTo(
       thinking,
       { opacity: 0, y: 8 },
       { opacity: 1, y: 0, duration: 0.24, ease: 'power2.out', immediateRender: false },
-      4.26
+      3.9
     );
     tl.to(
       thinking,
@@ -126,28 +135,27 @@ export default {
         duration: 0.2,
         ease: 'power2.in',
       },
-      4.52
+      4.2
     );
 
-    // ── The answer lands with the row already lit (f1608 / f1620).
+    // ── The answer lands (f1740) and holds for the rest of the scene.
     tl.fromTo(
       answer,
-      { opacity: 1, y: 8 },
-      { opacity: 1, y: 0, duration: 0.22, ease: 'power3.out', immediateRender: false },
-      5.0
+      { opacity: 0, y: 8 },
+      { opacity: 1, y: 0, duration: 0.3, ease: 'power3.out', immediateRender: false },
+      4.5
     );
     ia.highlight(portalRowSelector('CC1003'), {
-      at: 5.0,
-      duration: 1.0,
+      at: 4.6,
+      duration: 1.3,
       color: 'rgba(67, 198, 243, 0.24)',
     });
 
-    revealHeadline(tl, head, { at: 0.7, stagger: 0.06, duration: 0.55 });
-    retractHeadline(tl, head, { at: 4.5, duration: 0.4 });
+    revealHeadline(tl, head, { at: 0.62, stagger: 0.055, duration: 0.55 });
+    retractHeadline(tl, head, { at: 5.1, duration: 0.36 });
 
-    // ── Pull wide enough to show the answer and the row it refers to.
-    tl.to(cam, { x: -540, y: -304, scale: 1.25, duration: 0.5, ease: 'power3.inOut' }, 5.0);
-    ia.release({ at: 5.5, duration: 0.35 });
+    // ── Ease off the tight framing at the tail so the portal row lights up in view.
+    ia.release({ at: 5.55, duration: 0.36 });
 
     return tl;
   },

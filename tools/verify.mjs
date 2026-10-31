@@ -5,7 +5,7 @@
  *   node tools/verify.mjs
  *   node tools/verify.mjs --allow-missing-video
  *
- * Checks: video/audio specs, 2,112-frame count, audio peak + duration,
+ * Checks: video/audio specs, 2,784-frame count, audio peak + duration,
  * contact sheet, frozen-frame windows, and audio energy at cue frames.
  *
  * Exit codes: 0 PASS · 1 FAIL · 2 INCOMPLETE (video missing)

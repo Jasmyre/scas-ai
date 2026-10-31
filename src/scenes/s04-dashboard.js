@@ -25,7 +25,7 @@ export default {
     const dash = createDashboard();
     orbit.append(dash);
 
-    const hl = headline(['The control room.'], {
+    const hl = headline(['The dashboard.'], {
       className: 'display display-md',
       top: '8px',
       left: '120px',
@@ -36,16 +36,16 @@ export default {
     // Interactions are measured while the dashboard is still flat.
     ia.moveCursor('#new-assistant', { at: f(390), duration: 0.3 });
     ia.callback(() => {
-      const btn = document.querySelector('#new-assistant');
+      const btn = scene.querySelector('#new-assistant');
       if (btn) btn.classList.add('is-hover');
     }, f(408));
     ia.callback(() => {
-      const btn = document.querySelector('#new-assistant');
+      const btn = scene.querySelector('#new-assistant');
       if (btn) btn.classList.remove('is-hover');
     }, f(415));
-    ia.click('#new-assistant', { at: f(414), zoom: 1.9, focusDuration: 0.26 });
-    ia.release({ at: f(426), duration: 0.24 });
-    ia.hideCursor(f(429), 0.06);
+    ia.click('#new-assistant', { at: f(414), zoom: 1.9, focusDuration: 0.2 });
+    ia.release({ at: f(426), duration: 0.22, hide: false });
+    ia.hideCursor(f(428), 0.08);
 
     const tl = gsap.timeline();
 

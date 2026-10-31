@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "SCAS AI 88s product launch film - code-generated at 24 FPS",
+  "description": "SCAS AI 116s product launch film - code-generated at 24 FPS",
   "scripts": {
     "dev": "vite --port 5173 --host 127.0.0.1",
     "build": "vite build",

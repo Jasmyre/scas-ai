@@ -144,7 +144,7 @@ export default {
       dot.style.height = `${size}px`;
       dot.style.opacity = `${0.1 + random() * 0.16}`;
       dust.append(dot);
-      dustMotes.push({ el: dot, drift: 16 + random() * 26, dur: 3.2 + random() * 0.8 });
+      dustMotes.push({ el: dot, drift: 16 + random() * 26, dur: 2.9 + random() * 0.6 });
     }
 
     gsap.set(ctx.cam, { transformOrigin: '50% 50%' });
@@ -165,20 +165,20 @@ export default {
     );
 
     // Gradient drift + bloom breath + dust — the card never freezes.
-    tl.fromTo(wash, { rotation: 0, scale: 1 }, { rotation: 8, scale: 1.05, duration: 4, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
-    tl.fromTo(bloom, { scale: 0.92, opacity: 0.6 }, { scale: 1.06, opacity: 0.95, duration: 4, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
-    tl.fromTo(halo, { rotation: 0 }, { rotation: 22, duration: 8, ease: 'none' }, 0);
-    tl.fromTo(orb, { y: 5, scale: 0.985 }, { y: -7, scale: 1, duration: 4, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
+    tl.fromTo(wash, { rotation: 0, scale: 1 }, { rotation: 8, scale: 1.05, duration: 5, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
+    tl.fromTo(bloom, { scale: 0.92, opacity: 0.6 }, { scale: 1.06, opacity: 0.95, duration: 5, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
+    tl.fromTo(halo, { rotation: 0 }, { rotation: 26, duration: 10, ease: 'none' }, 0);
+    tl.fromTo(orb, { y: 5, scale: 0.985 }, { y: -7, scale: 1, duration: 5, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
 
     gsap.set([ringA, ringB], { rotationX: 70 });
-    tl.fromTo(ringA, { rotationZ: 0 }, { rotationZ: 24, duration: 8, ease: 'none' }, 0);
-    tl.fromTo(ringB, { rotationZ: 38 }, { rotationZ: 62, duration: 8, ease: 'none' }, 0);
+    tl.fromTo(ringA, { rotationZ: 0 }, { rotationZ: 28, duration: 10, ease: 'none' }, 0);
+    tl.fromTo(ringB, { rotationZ: 38 }, { rotationZ: 66, duration: 10, ease: 'none' }, 0);
 
     motes.forEach((mote, i) => {
       tl.fromTo(
         mote,
         { opacity: 0.1, scale: 0.7 },
-        { opacity: 0.72, scale: 1, duration: 3.1, ease: 'sine.inOut', yoyo: true, repeat: 1 },
+        { opacity: 0.72, scale: 1, duration: 3.9, ease: 'sine.inOut', yoyo: true, repeat: 1 },
         0.16 + (i % 9) * 0.07
       );
     });
@@ -187,7 +187,7 @@ export default {
       tl.fromTo(
         el,
         { y: 0 },
-        { y: -drift, duration: dur, ease: 'sine.inOut', yoyo: true, repeat: 1 },
+        { y: -drift, duration: dur + 0.9, ease: 'sine.inOut', yoyo: true, repeat: 1 },
         0
       );
     });
@@ -212,8 +212,8 @@ export default {
       );
     });
 
-    // f1968 · wordmark locks.
-    const lockAt = (1968 - scene.start) / 24; // 2.0
+    // f2592 · wordmark locks (+2s). Eight seconds of held logo follow.
+    const lockAt = (2592 - scene.start) / 24; // 2.0
     tl.to(wmL, { x: 0, rotationY: 0, opacity: 1, duration: lockAt - 1.5, ease: 'power4.out' }, 1.5);
     tl.to(wmR, { x: 0, rotationY: 0, opacity: 1, duration: lockAt - 1.5, ease: 'power4.out' }, 1.5);
     ctx.stage.shake(lockAt, 9);
@@ -223,14 +223,19 @@ export default {
     // Flare streak as the wordmark lands.
     tl.to(flare, { opacity: 0.85, scaleX: 1, duration: 0.45, ease: 'power3.out' }, 1.92);
     tl.to(flare, { opacity: 0.2, duration: 0.7, ease: 'sine.out' }, 2.5);
-    tl.to(flare, { opacity: 0.32, duration: 3.6, ease: 'sine.inOut' }, 4.4);
 
-    // f1992 · the last line.
+    // f2592 · the last line.
     tl.to(
       tagInner,
       { opacity: 1, yPercent: 0, skewY: 0, letterSpacing: '-0.045em', duration: 0.46, ease: 'power4.out' },
       1.96
     );
+
+    // ── Eight-second lock-up: keep breathing so the held logo never freezes.
+    tl.to(wmInner, { scale: 1.006, duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 3.6);
+    tl.to(tagInner, { letterSpacing: '-0.038em', duration: 3.0, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 3.8);
+    tl.fromTo(flare, { opacity: 0.26 }, { opacity: 0.44, duration: 3.4, ease: 'sine.inOut' }, 5.4);
+    tl.fromTo(bloom, { scale: 1.06 }, { scale: 0.99, duration: 2.6, ease: 'sine.inOut' }, 6.4);
 
     return tl;
   },
