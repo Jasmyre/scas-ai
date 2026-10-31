@@ -417,6 +417,16 @@
   pointer-events: none;
 }
 
+/* 0.5s fade up from black at 00:00. */
+.ts-s01__fade {
+  position: absolute;
+  inset: -12%;
+  background: #050607;
+  opacity: 1;
+  z-index: 70;
+  pointer-events: none;
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    S02 — THE SILENCE
    ═══════════════════════════════════════════════════════════════════════════ */

@@ -162,6 +162,23 @@ async function boot() {
   await document.fonts.ready;
   await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 
+  // Prototype stills: real components, identity camera, no film finishing.
+  if (params.has('proto')) {
+    document.body.classList.add('render-mode', 'cal-mode');
+    const shot = params.get('proto') || 'dashboard';
+    const { mountPrototype } = await import('./prototype/index.js');
+    mountPrototype(shot, { stage });
+
+    window.__READY = true;
+    window.__PROTO = shot;
+    window.__FPS = FPS;
+    window.__DURATION = DURATION;
+    window.__TOTAL_FRAMES = TOTAL_FRAMES;
+    window.__seek = () => 0;
+    window.dispatchEvent(new CustomEvent('scas:ready'));
+    return;
+  }
+
   // `?portal=1` mounts the portal at identity transform, with no scene camera,
   // grain or vignette. This is the only honest frame to diff against
   // tmp/portal.png; every s08 frame is intentionally zoomed mid-glide.

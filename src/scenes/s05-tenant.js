@@ -46,7 +46,7 @@ export default {
           <label class="wz-label">Portal</label>
           <div class="wz-select">
             <span class="wz-select__mark">EU</span>
-            <div><strong>SCAS Edusuite UNI</strong><span>scas.edusuite.asia · 214 sources</span></div>
+            <div><strong>SCAS Edusuite</strong><span>scas.edusuite.asia · 214 sources</span></div>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m4 6 4 4 4-4"/></svg>
           </div>
 
@@ -97,7 +97,7 @@ export default {
           <span class="deploy-card__mark">${scasSeal(30)}</span>
           <span class="deploy-card__live"><i></i>Live</span>
         </div>
-        <strong>SCAS Edusuite UNI</strong>
+        <strong>SCAS Edusuite</strong>
         <span class="deploy-card__meta">assistant · scas.edusuite.asia</span>
         <div class="deploy-card__tags">
           <span>${DASHBOARD_DATA.portals[0].sources}</span>
@@ -116,7 +116,7 @@ export default {
 
     // Measure interaction targets before any entrance transforms.
     ia.click('#assistant-name', { at: f(444), zoom: 1.8, focusDuration: 0.26 });
-    ia.type('#assistant-name', 'SCAS Edusuite UNI', { at: f(450), cps: 8, zoom: 1.85 });
+    ia.type('#assistant-name', 'SCAS Edusuite', { at: f(450), cps: 8, zoom: 1.85 });
     ia.click('#toggle-personal', { at: f(508), zoom: 1.4, focusDuration: 0.3 });
     ia.click('#preset-grounded', { at: f(516), zoom: 1.3, focusDuration: 0.28 });
     ia.click('#deploy', { at: f(540), zoom: 1.5, focusDuration: 0.26 });

@@ -28,7 +28,7 @@ export const SCENES = [
   { id: 's11c', slug: 'news', name: 'News & Events', act: 'III', start: 1920, end: 2064, headline: 'Ask about news and events.' },
   { id: 's12', slug: 'trust', name: 'Trust', act: 'IV', start: 2064, end: 2208, headline: 'Private to you.' },
   { id: 's13', slug: 'audit', name: 'Audit', act: 'IV', start: 2208, end: 2352, headline: 'Monitor every response.' },
-  { id: 's11d', slug: 'features', name: 'Features', act: 'IV', start: 2352, end: 2544, headline: 'More than answers.' },
+  { id: 's11d', slug: 'features', name: 'Features', act: 'IV', start: 2352, end: 2544, headline: 'An All-in-One Student Assistant.' },
   { id: 's14', slug: 'finale', name: 'Finale', act: 'IV', start: 2544, end: 2784, headline: 'Ask anything.' },
 ];
 
@@ -229,7 +229,7 @@ export const SFX = [
 // ── Typing ───────────────────────────────────────────────────────────────────
 // cps = characters per second. Visual typewriter and audio ticks share this.
 export const TYPING = [
-  { scene: 's05', target: '#assistant-name', start: 450, cps: 8, text: 'SCAS Edusuite UNI' },
+  { scene: 's05', target: '#assistant-name', start: 450, cps: 8, text: 'SCAS Edusuite' },
   { scene: 's07', target: '#guardrail-prompt', start: 778, cps: 16, text: "Show me another student's grades" },
   { scene: 's07', target: '#guardrail-prompt', start: 830, cps: 18, text: 'How do I clear my account?' },
   { scene: 's09', target: '#chat-input', start: 1176, cps: 12, text: 'How much do I still owe?' },
@@ -309,7 +309,7 @@ export const DASHBOARD_DATA = {
     { label: 'Escalations', value: '41', delta: '−12 this week' },
   ],
   portals: [
-    { name: 'SCAS Edusuite UNI', meta: 'scas.edusuite.asia', status: 'Live', sources: '214 sources', guardrail: 'Grounded + Silent' },
+    { name: 'SCAS Edusuite', meta: 'scas.edusuite.asia', status: 'Live', sources: '214 sources', guardrail: 'Grounded + Silent' },
     { name: 'SCAS Admissions', meta: 'admissions.scas.edu.ph', status: 'Draft', sources: '86 sources', guardrail: 'Public only' },
     { name: 'SCAS Main Site', meta: 'scas.edu.ph', status: 'Live', sources: '128 sources', guardrail: 'Grounded + Silent' },
   ],

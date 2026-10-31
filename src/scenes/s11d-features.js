@@ -8,6 +8,7 @@ const BELL = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke
 const BELL_DOT = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.6a6 6 0 0 1 12 0c0 3.9 1.4 5.3 1.4 5.3H4.6S6 13.5 6 9.6Z"/><path d="M10 18.2a2.2 2.2 0 0 0 4 0"/><circle cx="17.6" cy="6.4" r="2.6" fill="currentColor" stroke="none"/></svg>`;
 const CALC = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.6" y="3.4" width="14.8" height="17.2" rx="3"/><path d="M8.2 7.6h7.6"/><path d="M8.4 12h.01M12 12h.01M15.6 12h.01M8.4 16.2h.01M12 16.2h.01M15.6 16.2h.01"/></svg>`;
 const SHIELD_OK = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2 19 6v6c0 4.3-3 7.3-7 8.8-4-1.5-7-4.5-7-8.8V6l7-2.8Z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>`;
+const SPARK = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6M12 15v6M3 12h6M15 12h6M6.2 6.2l3 3M14.8 14.8l3 3M17.8 6.2l-3 3M9.2 14.8l-3 3"/></svg>`;
 
 const CARDS = [
   {
@@ -55,6 +56,18 @@ const CARDS = [
       <span class="ft-prev__row is-ok"><i></i><b>Registrar</b><em>Cleared</em></span>
       <span class="ft-prev__row is-warn"><i></i><b>Guidance</b><em>Pending</em></span>`,
   },
+  {
+    n: '05',
+    icon: SPARK,
+    label: 'And much more',
+    value: 'One chat',
+    span: 'every task',
+    sub: 'Payments, enrollment, guidance — the list keeps growing.',
+    preview: `
+      <span class="ft-prev__row"><i></i><b>Payments</b><em>Ask</em></span>
+      <span class="ft-prev__row"><i></i><b>Enrollment</b><em>Ask</em></span>
+      <span class="ft-prev__row"><i></i><b>Guidance</b><em>Ask</em></span>`,
+  },
 ];
 
 export default {
@@ -78,7 +91,7 @@ export default {
       </header>
 
       <div class="ft-eyebrow">Everything else the assistant does</div>
-      <h1 class="display display-sm ft-title">More than answers.</h1>
+      <h1 class="display display-sm ft-title">An All-in-One Student Assistant</h1>
 
       <div class="ft-grid">
         ${CARDS.map(
@@ -95,7 +108,7 @@ export default {
       </div>`;
     content.append(scene);
 
-    const hr = headline(['More than answers.'], {
+    const hr = headline(['An All-in-One', 'Student Assistant'], {
       className: 'display display-sm',
       top: '132px',
       left: '120px',

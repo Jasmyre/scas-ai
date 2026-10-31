@@ -58,7 +58,7 @@ export default {
 
       <header class="gr-head">
         <div class="gr-brand">${scasSeal(26)}<div><strong>SCAS AI</strong><span>Guardrails</span></div></div>
-        <div class="gr-portal"><span class="gr-portal__mark">EU</span>SCAS Edusuite UNI<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m4 6 4 4 4-4"/></svg></div>
+        <div class="gr-portal"><span class="gr-portal__mark">EU</span>SCAS Edusuite<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m4 6 4 4 4-4"/></svg></div>
         <span class="gr-crumb">Administration / Guardrails</span>
         <span class="gr-policy"><i></i>Policy v2.4 · enforced</span>
       </header>

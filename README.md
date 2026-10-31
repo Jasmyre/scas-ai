@@ -9,6 +9,7 @@ npm install
 npm run dev          # realtime preview with scrubber
 npm run render:stills # key frames for review
 npm run audio        # synthesize music + SFX
+npm run prototype    # product UI stills -> out/prototype
 npm run render       # 2,784 frames through Playwright
 npm run encode       # H.264 + AAC MP4
 npm run verify       # ffprobe + audio report
@@ -27,12 +28,15 @@ npm run pipeline     # audio → render → encode → verify
 
 - `/?render=1` — deterministic capture mode, no preview chrome.
 - `/?scene=s09` — isolate one scene.
+- `/?proto=dashboard` — one product surface, identity camera, no film finishing.
+  Shots: `dashboard`, `new-assistant`, `message-audit`, `portal-launcher`, `portal-chat`.
 - Scrubber: space = play/pause, arrows = step frames.
 
 ## Output
 
 - `out/scas-ai-showcase-1080p24.mp4`
 - `out/scas-ai-master.wav`
+- `out/prototype/` — 3840×2160 product UI stills
 - `out/stills/` — review frames
 - `out/render-report.json`
 - `render/frames/` — PNG sequence (gitignored)

@@ -70,7 +70,7 @@ export default {
       <div class="know-grid"></div>
       <header class="know-head">
         <div class="know-brand">${scasSeal(26)}<div><strong>SCAS AI</strong><span>Knowledge</span></div></div>
-        <div class="know-portal"><span class="know-portal__mark">EU</span>SCAS Edusuite UNI<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m4 6 4 4 4-4"/></svg></div>
+        <div class="know-portal"><span class="know-portal__mark">EU</span>SCAS Edusuite<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m4 6 4 4 4-4"/></svg></div>
         <span class="know-sync"><i></i>Synced · 214 sources</span>
       </header>
 
@@ -128,7 +128,7 @@ export default {
 
         <section class="know-graph">
           <div class="know-graph__head">
-            <div><strong>Knowledge index</strong><span>SCAS Edusuite UNI · live</span></div>
+            <div><strong>Knowledge index</strong><span>SCAS Edusuite · live</span></div>
             <span class="know-grounded"><i></i>98.7% grounded</span>
           </div>
           <div class="know-map" id="know-map">${graphSVG()}</div>

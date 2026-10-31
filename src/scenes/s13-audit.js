@@ -74,7 +74,7 @@ export default {
 
       <header class="au-head">
         <div class="au-brand">${scasSeal(26)}<div><strong>SCAS AI</strong><span>Audit</span></div></div>
-        <div class="au-portal"><span class="au-portal__mark">EU</span>SCAS Edusuite UNI<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m4 6 4 4 4-4"/></svg></div>
+        <div class="au-portal"><span class="au-portal__mark">EU</span>SCAS Edusuite<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m4 6 4 4 4-4"/></svg></div>
         <span class="au-crumb">Administration / Audit</span>
         <span class="au-policy"><i></i>Immutable trail</span>
       </header>

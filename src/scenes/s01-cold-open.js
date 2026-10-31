@@ -71,6 +71,13 @@ export default {
       <div class="ts-s01__flash"></div>`;
     ctx.content.append(root);
 
+    // Screen-fixed black plate: the opening camera is rolled and scaled, and the
+    // rig itself starts offset by a few pixels, so the plate must sit on the
+    // stage (outside #rig) to cover the true frame edge.
+    const fade = document.createElement('div');
+    fade.className = 'ts-s01__fade';
+    (ctx.layer.el.closest('.stage') || document.getElementById('stage')).append(fade);
+
     const world = q(root, '.ts-s01__world');
     const head = headline(
       [
@@ -106,6 +113,9 @@ export default {
     gsap.set(inners[2], { opacity: 0, yPercent: 128, skewY: 6, letterSpacing: '0.2em' });
 
     const tl = gsap.timeline();
+
+    // 0.5s fade up from black: the film opens on black, not on the first frame.
+    tl.fromTo(fade, { opacity: 1 }, { opacity: 0, duration: 0.5, ease: 'power1.inOut' }, 0);
 
     // Camera: slow push and a two-degree roll that settles.
     tl.fromTo(

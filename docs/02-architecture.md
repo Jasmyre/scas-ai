@@ -57,7 +57,7 @@ Tenancy is the backbone of the data model. The chosen shape: **school = tenant, 
 
 ```
 School (tenant)
-  └── Portal (e.g. "SCAS Edusuite UNI")
+  └── Portal (e.g. "SCAS Edusuite")
         ├── Assistant (knowledge, rules, guardrails)
         ├── Knowledge base entries / documents
         ├── Identity config (token secret, allowed host origins)

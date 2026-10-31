@@ -1,7 +1,7 @@
 {
-  "startedAt": "2026-10-31T02:27:58.671Z",
-  "finishedAt": "2026-10-31T03:02:34.511Z",
-  "ok": true,
+  "startedAt": "2026-10-31T04:01:52.741Z",
+  "finishedAt": "2026-10-31T04:09:52.563Z",
+  "ok": false,
   "mode": "frames",
   "config": {
     "viewport": "1920x1080",
@@ -18,15 +18,15 @@
   },
   "counts": {
     "planned": 2784,
-    "captured": 2784,
+    "captured": 504,
     "skipped": 0,
     "failed": 0
   },
   "timing": {
-    "elapsedMs": 2074240,
-    "captureMs": 2068196,
-    "renderFps": 1.346,
-    "avgFrameMs": 743
+    "elapsedMs": 0,
+    "captureMs": 473201,
+    "renderFps": 1.065,
+    "avgFrameMs": null
   },
   "missing": [],
   "failures": [],

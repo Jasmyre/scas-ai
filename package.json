@@ -11,6 +11,7 @@
     "audio": "node audio/synth.mjs",
     "render": "node tools/render.mjs",
     "render:stills": "node tools/render.mjs --stills",
+    "prototype": "node tools/prototype.mjs",
     "encode": "node tools/encode.mjs",
     "verify": "node tools/verify.mjs",
     "calibrate": "node tools/calibrate-portal.mjs",
