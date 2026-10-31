@@ -18,7 +18,7 @@ export const CUTS = [
   { frame: 2064, type: 'flash', strength: 0.5, blur: 11 },
   { frame: 2208, type: 'impact', strength: 1.0, blur: 14 },
   { frame: 2352, type: 'whip', blur: 8, dir: 'right' },
-  { frame: 2544, type: 'ripple', strength: 0.55, blur: 9 },
+  { frame: 2544, type: 'flash', strength: 0.22, blur: 5 },
 ];
 
 const F = 1 / 24;

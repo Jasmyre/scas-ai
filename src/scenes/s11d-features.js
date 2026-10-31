@@ -60,8 +60,8 @@ const CARDS = [
     n: '05',
     icon: SPARK,
     label: 'And much more',
-    value: 'One chat',
-    span: 'every task',
+    value: 'Broad Capabilities',
+    span: 'wide range of usage',
     sub: 'Payments, enrollment, guidance — the list keeps growing.',
     preview: `
       <span class="ft-prev__row"><i></i><b>Payments</b><em>Ask</em></span>
@@ -76,7 +76,7 @@ export default {
   end: SCENE.end,
   build(ctx) {
     const { gsap, cam, content } = ctx;
-    const f = (n) => (n - SCENE.start) / 24;
+    const END = (SCENE.end - SCENE.start) / 24; // 8s
 
     const scene = document.createElement('div');
     scene.className = 'ft';
@@ -165,19 +165,32 @@ export default {
     );
     tl.to(meter, { scaleX: 1, duration: 0.9, ease: 'power2.out' }, 2.5);
 
-    // ── A low sweep keeps the still frame alive through the hold.
+    // ── A low sweep keeps the still frame alive through the hold. It runs to
+    // the very last frame so the hand-off never sits on a frozen still.
     tl.fromTo(
       scene.querySelector('.ft-bloom'),
       { x: -260, opacity: 0.5 },
-      { x: 260, opacity: 0.9, duration: 2.3, ease: 'sine.inOut', yoyo: true, repeat: 1 },
+      { x: 320, opacity: 0.9, duration: (END - 3.2) / 2, ease: 'sine.inOut', yoyo: true, repeat: 1 },
       3.2
     );
-    tl.to(cam, { scale: 1.028, duration: 3.2, ease: 'sine.inOut' }, 2.4);
+    tl.to(cam, { scale: 1.014, duration: END - 4.1, ease: 'sine.inOut' }, 2.4);
 
     // ── Hand off to the finale: the title clears, the frame pushes in.
     retractHeadline(tl, hr, { at: 6.3, duration: 0.38 });
     tl.to(scene.querySelector('.ft-eyebrow'), { opacity: 0, duration: 0.24 }, 6.3);
-    tl.to(cam, { scale: 1.06, duration: 1.1, ease: 'power2.in' }, f(2508));
+
+    // The push keeps accelerating into the cut instead of settling early: at
+    // 1.06 the header pill clipped the frame edge and the last 10 frames were
+    // dead, which read as a freeze. 1.028 stays inside the safe area and the
+    // tween now lands exactly on the scene end.
+    tl.to(cam, { scale: 1.028, duration: 1.7, ease: 'power1.in' }, END - 1.7);
+
+    // The stage keeps the outgoing scene alive for six frames under the cut so
+    // a whip never exposes the canvas. This page is opaque, so the finale would
+    // sit on top of a still-readable card grid — a double exposure that reads
+    // as lag. Drop the page on its last frame; the finale's card is transparent
+    // and carries the cut on its own.
+    tl.to(scene, { opacity: 0, duration: 0.001, ease: 'none' }, END - 0.002);
 
     return tl;
   },

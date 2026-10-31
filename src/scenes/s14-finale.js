@@ -156,10 +156,11 @@ export default {
 
     const tl = gsap.timeline();
 
-    // Slow pull-back across the whole end card.
+    // Slow pull-back across the whole end card. Starts where the features
+    // scene left off (1.028) so the cut reads as one continuous camera move.
     tl.fromTo(
       ctx.cam,
-      { scale: 1 },
+      { scale: 1.028 },
       { scale: 0.92, duration: (scene.end - scene.start) / 24, ease: 'sine.inOut' },
       0
     );
